@@ -1,5 +1,6 @@
 //28.01.2026
 //09.02.2026
+//19.02.2026
 
 
 #include <iostream>
@@ -159,34 +160,6 @@ class TrafficController {
                     allLightsReady = true;
                 }
                 cv.notify_all();
-                
-                // Ожидание зеленой фазы
-                // auto start = steady_clock::now();
-                // if (isRunning.load() && ! isStopping.load()) { 
-                // while (isRunning.load() && !isStopping.load()) {
-                    // auto elapsed = steady_clock::now() - start;
-                    // if (elapsed >= greenDuration) break;
-                    
-                    // // Периодический вывод оставшегося времени
-                    // auto remaining = greenDuration - elapsed;
-                    // auto remaining_seconds = std::chrono::duration_cast<std::chrono::seconds>(remaining);
-                    // // if (remaining_seconds.count() > 0 && remaining_seconds.count() % 2 == 0) { // Каждые 2 секунды
-                    // //     ColoredOutput::print(0, TrafficColor::Green, 
-                    // //         "Remaining: " + std::to_string(remaining_seconds.count()) + "s");
-                    // // }
-                    
-                
-
-                    // if (remaining_seconds.count() > 0) {
-                    //     // every second display
-                    //     static int last_shown = -1;
-                    //     if (remaining_seconds.count() != last_shown) {
-                    //         std::cout << "Time left: " + std::to_string(remaining_seconds.count()) + "s"<< std::endl;
-                    //         last_shown = remaining_seconds.count();
-                    //     }
-                    // } 
-                    
-                    // std::this_thread::sleep_for(500ms);
 
                         size_t duration_seconds_green = static_cast<size_t>(greenDuration.count());
                         for (size_t i = duration_seconds_green; i > 0; --i) {
@@ -211,12 +184,7 @@ class TrafficController {
                 }
                 cv.notify_all();
                 
-                // start = steady_clock::now();
                 size_t duration_seconds = static_cast<size_t>(yellowDuration.count());
-                // while (isRunning.load() && !isStopping.load()) {
-                    // auto elapsed = steady_clock::now() - start;
-                    // if (elapsed >= yellowDuration) break;
-                    // std::this_thread::sleep_for(100ms);
                     for (size_t i = duration_seconds; i > 0; --i) {
                         if (isRunning.load() && ! isStopping.load()) { 
                         std::cout << std::to_string(i) + " seconds remaining" << std::endl;
@@ -240,28 +208,8 @@ class TrafficController {
                 }
                 cv.notify_all();
                 
-                // start = steady_clock::now();
-                    // while (isRunning.load() && !isStopping.load()) {
                         if (isRunning.load() && !isStopping.load()) { 
-                        // auto elapsed = steady_clock::now() - start;
-                        // if (elapsed >= greenDuration) break;
                         
-                        // auto remaining = greenDuration - elapsed;
-                        // auto remaining_seconds = std::chrono::duration_cast<std::chrono::seconds>(remaining); 
-                        //         // if (remaining_seconds.count() > 0 && remaining_seconds.count() % 2 == 0) {
-                        //         //     ColoredOutput::print(1, TrafficColor::Green,
-                        //         //         "Remaining: " + std::to_string(remaining_seconds.count()) + "s");
-                        //         // }
-                        // if (remaining_seconds.count() > 0) {
-                        //     // every second display
-                        //     static int last_shown = -1;
-                        //     if (remaining_seconds.count() != last_shown) {
-                        //         std::cout << "Time left: " + std::to_string(remaining_seconds.count()) + "s" << std::endl;
-                        //         last_shown = remaining_seconds.count();
-                        //     }
-                        // } 
-                        
-                        // std::this_thread::sleep_for(500ms);
         
                         size_t duration_seconds = static_cast<size_t>(greenDuration.count());
                         for (size_t i = duration_seconds; i > 0; --i) {
@@ -286,11 +234,7 @@ class TrafficController {
                 cv.notify_all();
                 
                 if (isRunning.load() && ! isStopping.load()) { 
-                // start = steady_clock::now();
-                // while (isRunning.load() && !isStopping.load()) {
-                    // auto elapsed = steady_clock::now() - start;
-                    // if (elapsed >= yellowDuration) break;
-                    for (size_t i = duration_seconds; i > 0; --i) {
+                   for (size_t i = duration_seconds; i > 0; --i) {
                             if (isRunning.load() && ! isStopping.load()) { 
                         std::cout << std::to_string(i) + " seconds remaining" << std::endl;
                         std::this_thread::sleep_for(1s);
