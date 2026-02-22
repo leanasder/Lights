@@ -359,9 +359,9 @@ int main() {
               << "\033[0m" << std::endl;
     
     // Создание системы
-    auto GREEN_RED_DUR = 4s;
-    auto YELLOW_DUR = 1s;
-    auto WORK_DUR = 25s;
+    auto GREEN_RED_DUR = 10s;
+    auto YELLOW_DUR = 2s;
+    auto WORK_DUR = 60s;
     TrafficController controller(GREEN_RED_DUR, YELLOW_DUR); // 4 сек зеленый, 1 сек желтый
     
     SynchronizedTrafficLight light0(0, &controller);
