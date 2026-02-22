@@ -359,7 +359,10 @@ int main() {
               << "\033[0m" << std::endl;
     
     // Создание системы
-    TrafficController controller(4s, 1s); // 4 сек зеленый, 1 сек желтый
+    auto GREEN_RED_DUR = 4s;
+    auto YELLOW_DUR = 1s;
+    auto WORK_DUR = 25s;
+    TrafficController controller(GREEN_RED_DUR, YELLOW_DUR); // 4 сек зеленый, 1 сек желтый
     
     SynchronizedTrafficLight light0(0, &controller);
     SynchronizedTrafficLight light1(1, &controller);
@@ -369,8 +372,8 @@ int main() {
     
     // Информация о системе
     ColoredOutput::printInfo("System configuration:");
-    ColoredOutput::printInfo("  • Green duration: 4 seconds");
-    ColoredOutput::printInfo("  • Yellow duration: 1 second");
+    ColoredOutput::printInfo("  • Green duration: " + std::to_string(GREEN_RED_DUR.count()) + " seconds");
+    ColoredOutput::printInfo("  • Yellow duration: " + std::to_string(YELLOW_DUR.count()) + " seconds");
     ColoredOutput::printInfo("  • Light 0: North-South direction");
     ColoredOutput::printInfo("  • Light 1: East-West direction");
     ColoredOutput::printInfo("Starting in 2 seconds...");
@@ -384,7 +387,7 @@ int main() {
     controller.start();
     
     // Работа системы
-    std::this_thread::sleep_for(25s);
+    std::this_thread::sleep_for(WORK_DUR);
     
     // Остановка
     ColoredOutput::printInfo("\nInitiating system shutdown...");
