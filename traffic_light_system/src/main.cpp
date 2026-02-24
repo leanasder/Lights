@@ -1,6 +1,7 @@
 #include "traffic_controller.h"
 #include "synchronized_traffic_light.h"
 #include <thread>
+#include <iostream>
 
 int main() {
     using namespace std::chrono_literals;

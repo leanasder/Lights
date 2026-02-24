@@ -1,5 +1,6 @@
 #include "traffic_controller.h"
 #include "synchronized_traffic_light.h"
+#include <iostream>
 
 using namespace std::chrono_literals;
 
@@ -14,7 +15,7 @@ TrafficController::~TrafficController() {
 }
 
 void TrafficController::registerLight(SynchronizedTrafficLight* light) {
-    light.push_back(light);
+    lights.push_back(light);
 }
 
 void TrafficController::start() {
@@ -47,7 +48,7 @@ bool TrafficController::waitForSignal(SynchronizedTrafficLight* light) {
     std::unique_lock<std::mutex> lock(mtx);
 
     cv.wait(lock, [this]() {
-        return allLightsReady || is Stopping.load();
+        return allLightsReady || isStopping.load();
     });
 
     if (isStopping.load()) {
@@ -117,7 +118,7 @@ void TrafficController::controlCycle() {
             std::lock_guard<std::mutex> lock(mtx);
             allLightsReady = true;
         }
-        cv.nofify_all();
+        cv.notify_all();
 
         size_t duration_seconds = static_cast<size_t>(yellowDuration.count());
         for (size_t i = duration_seconds; i > 0; --i) {
@@ -130,7 +131,7 @@ void TrafficController::controlCycle() {
         if (!isRunning.load() || isStopping.load()) break;
 
         //PHASE 2
-        coloredOutput::printPhase("PHASE " + std::to_string(cycleCount) +
+        ColoredOutput::printPhase("PHASE " + std::to_string(cycleCount) +
                                   ": Light 0 RED/ Light 1 GREEN");
         
         lights[0]->setColor(TrafficColor::Red);
@@ -140,7 +141,7 @@ void TrafficController::controlCycle() {
             std::lock_guard<std::mutex> lock(mtx);
             allLightsReady = true;
         }
-        cv.nofify_all();
+        cv.notify_all();
 
         if (isRunning.load() && !isStopping.load()) {
             size_t duration_seconds = static_cast<size_t>(greenDuration.count());

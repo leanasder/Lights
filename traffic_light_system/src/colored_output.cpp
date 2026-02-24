@@ -1,7 +1,8 @@
 #include "colored_output.h"
+#include <iostream>
 
 std::mutex ColoredOutput::cout_mutex;
-void ColoredOutput::print(int lightId< TrafficColor color, const std::string& message) {
+void ColoredOutput::print(int lightId, TrafficColor color, const std::string& message) {
     std::lock_guard<std::mutex> lock(cout_mutex);
 
     const char* colorCode = "";
@@ -34,7 +35,7 @@ void ColoredOutput::print(int lightId< TrafficColor color, const std::string& me
 
 void ColoredOutput::printPhase(const std::string& phase) {
     std::lock_guard<std::mutex> lock(cout_mutex);
-    std::cout << "\n\033[1;36m" << "=== " phase << " ===\033[0m" << std::endl;
+    std::cout << "\n\033[1;36m" << "=== " << phase << " ===\033[0m" << std::endl;
 }
 
 void ColoredOutput::printInfo(const std::string& info) {

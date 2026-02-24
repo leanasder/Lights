@@ -8,6 +8,9 @@
 #include <atomic>
 #include <mutex>
 #include <condition_variable>
+#include <chrono>
+
+using namespace std::chrono_literals;
 
 //Preliminary announcement class SynchronizedTrafficLight;
 class SynchronizedTrafficLight;
