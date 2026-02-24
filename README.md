@@ -1,13 +1,15 @@
-Рассмотрим перекресток. На нем находится несколько светофоров, регулирующих движение автомобилей (4 шт), и несколько - движение пешеходов по переходам (8 шт):
- 
-У пешеходных светофоров 2 состояния, у автомобильных - 3. В каждый светофор встроена камера, которая фиксирует количество автомобилей/пешеходов в той очереди, для которых светофор установлен. 
-Это очередь на противоположной стороне пешехода/перекрестка (см рисунок). Автомобили при проезде перекрестка едут либо прямо, либо направо. 
-Люди и автомобили осуществляют переход или проезд перекрестка по одному, уменьшая размер соответствующей очереди на 1.
-Каждый светофор имеет уникальный id. Светофоры могут общаться при помощи событий, отсылая события друг другу по id.
-Пересылаемые события - это некоторые контейнеры с данными (например, там может лежать количество людей/автомобилей в очереди, id отправителя, текущее состояние светофора).
-Светофор может взводить таймер, который через заданное время отсылают заданное событие на заданный id.
-Отправка события - это помещение контейнера в очередь событий для светофора, у каждого светофора очередь своя собственная.
-Светофоры обрабатывают события параллельно, независимо от друг от друга.
-При этом каждый светофор обрабатывает свои события последовательно, в том порядке, в каком они помещаются в очередь.
-Светофор может получить информацию о текущем состоянии любого другого светофора синхронно (не через событие).
-Задача: придумать и описать адаптивный алгоритм работы светофоров для оптимизации общей пропускной способности перекрестка в зависимости от ситуации на перекрестке.
+Consider an intersection. It has several traffic lights regulating vehicle movement (4 of them) and several regulating pedestrian movement at crosswalks (8 of them):
+
+Pedestrian traffic lights have 2 states, vehicle traffic lights have 3.
+Each traffic light has a built-in camera that records the number of vehicles/pedestrians in the queue for which the traffic light is installed.
+This is the queue on the opposite side of the pedestrian crossing/intersection (see figure). 
+When passing through the intersection, vehicles either go straight or turn right. People and vehicles cross or pass through the intersection one by one, reducing the size of the corresponding queue by 1.
+Each traffic light has a unique ID. Traffic lights can communicate using events, sending events to each other by ID.
+The events sent are containers with data (for example, they may contain the number of people/vehicles in the queue, the sender's ID, the current state of the traffic light).
+A traffic light can set a timer that, after a specified time, sends a specified event to a specified ID. 
+Sending an event means placing the container into the event queue for the traffic light; each traffic light has its own queue.
+Traffic lights process events in parallel, independently of each other. At the same time, each traffic light processes its events sequentially, in the order they are placed in the queue.
+A traffic light can obtain information about the current state of any other traffic light synchronously (not via an event).
+Task: devise and describe an adaptive algorithm for the operation of traffic lights to optimize the overall throughput of the intersection depending on the situation at the intersection.
+
+
