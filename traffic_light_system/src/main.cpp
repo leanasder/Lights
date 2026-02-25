@@ -1,5 +1,5 @@
 #include "traffic_controller.h"
-#include "synchronized_traffic_light.h"
+#include "car_traffic_light.h"
 #include <thread>
 #include <iostream>
 
@@ -18,8 +18,8 @@ int main() {
 
     TrafficController controller(GREEN_RED_DUR, YELLOW_DUR);
 
-    SynchronizedTrafficLight light0(0, &controller);
-    SynchronizedTrafficLight light1(1, &controller);
+    CarTrafficLight light0(0);
+    CarTrafficLight light1(1);
 
     controller.registerLight(&light0);
     controller.registerLight(&light1);

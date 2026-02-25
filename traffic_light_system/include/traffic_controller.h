@@ -16,7 +16,7 @@ using namespace std::chrono_literals;
 class SynchronizedTrafficLight;
 
 class TrafficController { 
-    std::vector<SynchronizedTrafficLight*> lights;
+    std::vector<TrafficLightBase*> lights;
     std::atomic<bool> isRunning{false};
     std::atomic<bool> isStopping{false};
     std::thread controllerThread;
@@ -35,7 +35,7 @@ public:
                     std::chrono::seconds yellowTime = 2s);
     ~TrafficController();
 
-    void registerLight(SynchronizedTrafficLight* light);
+    void registerLight(TrafficLightBase* light);
     void start();
     void stop();
 

@@ -1,5 +1,6 @@
 #include "traffic_controller.h"
-#include "synchronized_traffic_light.h"
+// #include "synchronized_traffic_light.h"
+#include "car_traffic_light.h"
 #include <iostream>
 
 using namespace std::chrono_literals;
@@ -67,120 +68,122 @@ bool TrafficController::isControllerRunning() const {
 }
 
 void TrafficController::controlCycle() {
-    using namespace std::chrono;
+    // using namespace std::chrono;
 
-    //Initialization
-    ColoredOutput::printInfo("Initializing traffic lights...");
-    lights[0]->setColor(TrafficColor::Green);
-    lights[1]->setColor(TrafficColor::Red);
+    // //Initialization
+    // ColoredOutput::printInfo("Initializing traffic lights...");
+    // lights[0]->setColor(TrafficColor::Green);
+    // lights[1]->setColor(TrafficColor::Red);
 
-    //First notice
-    {
-        std::lock_guard<std::mutex> lock(mtx);
-        allLightsReady = true;
-    }
-    cv.notify_all();
-    std::this_thread::sleep_for(200ms);
+    // //First notice
+    // {
+    //     std::lock_guard<std::mutex> lock(mtx);
+    //     allLightsReady = true;
+    // }
+    // cv.notify_all();
+    // std::this_thread::sleep_for(200ms);
 
-    int cycleCount = 0;
-    while (isRunning.load() && !isStopping.load()) {
-        cycleCount++;
+    // int cycleCount = 0;
+    // while (isRunning.load() && !isStopping.load()) {
+    //     cycleCount++;
 
-        //PHASE 1
-        ColoredOutput::printPhase("PHASE " + std::to_string(cycleCount) +
-                                 ": Light 0 GREEN / Light 1 RED" );
-        lights[0]->setColor(TrafficColor::Green);
-        lights[1]->setColor(TrafficColor::Red);
+    //     //PHASE 1
+    //     ColoredOutput::printPhase("PHASE " + std::to_string(cycleCount) +
+    //                              ": Light 0 GREEN / Light 1 RED" );
+    //     lights[0]->setColor(TrafficColor::Green);
+    //     lights[1]->setColor(TrafficColor::Red);
 
-        {
-            std::lock_guard<std::mutex> lock(mtx);
-            allLightsReady = true;
-        }
-        cv.notify_all();
+    //     {
+    //         std::lock_guard<std::mutex> lock(mtx);
+    //         allLightsReady = true;
+    //     }
+    //     cv.notify_all();
 
-        size_t duration_seconds_green = static_cast<size_t>(greenDuration.count());
-        for (size_t i = duration_seconds_green; i > 0; --i) {
-            if (isRunning.load() && !isStopping.load()) {
-                std::cout << std::to_string(i) + " seconds remaining" << std::endl;
-                std::this_thread::sleep_for(1s);
-            }
-        }
+    //     size_t duration_seconds_green = static_cast<size_t>(greenDuration.count());
+    //     for (size_t i = duration_seconds_green; i > 0; --i) {
+    //         if (isRunning.load() && !isStopping.load()) {
+    //             std::cout << std::to_string(i) + " seconds remaining" << std::endl;
+    //             std::this_thread::sleep_for(1s);
+    //         }
+    //     }
 
-        if (!isRunning.load() ||isStopping.load()) break;
+    //     if (!isRunning.load() ||isStopping.load()) break;
 
-        //TRANSITION 1
-        ColoredOutput::printPhase("TRANSITION: light 0 YELLOW / Light 1 RED");
+    //     //TRANSITION 1
+    //     ColoredOutput::printPhase("TRANSITION: light 0 YELLOW / Light 1 RED");
 
-        lights[0]->setColor(TrafficColor::Yellow);
-        lights[1]->setColor(TrafficColor::Red);
+    //     lights[0]->setColor(TrafficColor::Yellow);
+    //     lights[1]->setColor(TrafficColor::Red);
 
-        {
-            std::lock_guard<std::mutex> lock(mtx);
-            allLightsReady = true;
-        }
-        cv.notify_all();
+    //     {
+    //         std::lock_guard<std::mutex> lock(mtx);
+    //         allLightsReady = true;
+    //     }
+    //     cv.notify_all();
 
-        size_t duration_seconds = static_cast<size_t>(yellowDuration.count());
-        for (size_t i = duration_seconds; i > 0; --i) {
-            if (isRunning.load() && !isStopping.load()) {
-                std::cout << std::to_string(i) + " seconds remaining" << std::endl;
-                std::this_thread::sleep_for(1s);
-            }
-        }
+    //     size_t duration_seconds = static_cast<size_t>(yellowDuration.count());
+    //     for (size_t i = duration_seconds; i > 0; --i) {
+    //         if (isRunning.load() && !isStopping.load()) {
+    //             std::cout << std::to_string(i) + " seconds remaining" << std::endl;
+    //             std::this_thread::sleep_for(1s);
+    //         }
+    //     }
 
-        if (!isRunning.load() || isStopping.load()) break;
+    //     if (!isRunning.load() || isStopping.load()) break;
 
-        //PHASE 2
-        ColoredOutput::printPhase("PHASE " + std::to_string(cycleCount) +
-                                  ": Light 0 RED/ Light 1 GREEN");
+    //     //PHASE 2
+    //     ColoredOutput::printPhase("PHASE " + std::to_string(cycleCount) +
+    //                               ": Light 0 RED/ Light 1 GREEN");
         
-        lights[0]->setColor(TrafficColor::Red);
-        lights[1]->setColor(TrafficColor::Green);
+    //     lights[0]->setColor(TrafficColor::Red);
+    //     lights[1]->setColor(TrafficColor::Green);
 
-        {
-            std::lock_guard<std::mutex> lock(mtx);
-            allLightsReady = true;
-        }
-        cv.notify_all();
+    //     {
+    //         std::lock_guard<std::mutex> lock(mtx);
+    //         allLightsReady = true;
+    //     }
+    //     cv.notify_all();
 
-        if (isRunning.load() && !isStopping.load()) {
-            size_t duration_seconds = static_cast<size_t>(greenDuration.count());
-            for (size_t i = duration_seconds; i > 0; --i) {
-                if (isRunning.load() && !isStopping.load()) {
-                    std::cout << std::to_string(i) + " seconds remaining" << std::endl;
-                    std::this_thread::sleep_for(1s);
-                }
-            }
-        }
+    //     if (isRunning.load() && !isStopping.load()) {
+    //         size_t duration_seconds = static_cast<size_t>(greenDuration.count());
+    //         for (size_t i = duration_seconds; i > 0; --i) {
+    //             if (isRunning.load() && !isStopping.load()) {
+    //                 std::cout << std::to_string(i) + " seconds remaining" << std::endl;
+    //                 std::this_thread::sleep_for(1s);
+    //             }
+    //         }
+    //     }
 
-        if (!isRunning.load() || isStopping.load()) break;
+    //     if (!isRunning.load() || isStopping.load()) break;
 
-        //TRANSITION 2
-        ColoredOutput::printPhase("TRANSITION: Light 0 RED / Light 1 YELLOW");
-        lights[0]->setColor(TrafficColor::Red);
-        lights[1]->setColor(TrafficColor::Yellow);
+    //     //TRANSITION 2
+    //     ColoredOutput::printPhase("TRANSITION: Light 0 RED / Light 1 YELLOW");
+    //     lights[0]->setColor(TrafficColor::Red);
+    //     lights[1]->setColor(TrafficColor::Yellow);
 
-        {
-            std::lock_guard<std::mutex> lock(mtx);
-            allLightsReady = true;
-        }
-        cv.notify_all();
+    //     {
+    //         std::lock_guard<std::mutex> lock(mtx);
+    //         allLightsReady = true;
+    //     }
+    //     cv.notify_all();
 
-        if (isRunning.load() && !isStopping.load()) {
-            for (size_t i = duration_seconds; i > 0; --i) {
-                if (isRunning.load() && !isStopping.load()) {
-                    std::cout << std::to_string(i) + " seconds remaining" << std::endl;
-                    std::this_thread::sleep_for(1s);
-                }
-            }
-        }
-    }
+    //     if (isRunning.load() && !isStopping.load()) {
+    //         for (size_t i = duration_seconds; i > 0; --i) {
+    //             if (isRunning.load() && !isStopping.load()) {
+    //                 std::cout << std::to_string(i) + " seconds remaining" << std::endl;
+    //                 std::this_thread::sleep_for(1s);
+    //             }
+    //         }
+    //     }
+    // }
 
-    //Completion
-    {
-        std::lock_guard<std::mutex> lock(mtx);
-        allLightsReady = true;
-    }
-    cv.notify_all();
-    ColoredOutput::printInfo("Controller stopped");
+    // //Completion
+    // {
+    //     std::lock_guard<std::mutex> lock(mtx);
+    //     allLightsReady = true;
+    // }
+    // cv.notify_all();
+    // ColoredOutput::printInfo("Controller stopped");
+    ColoredOutput::printInfo("controller running (temporary)");
+    std::this_thread::sleep_for(1s);
 }
