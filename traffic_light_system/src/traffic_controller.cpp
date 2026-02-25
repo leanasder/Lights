@@ -15,7 +15,7 @@ TrafficController::~TrafficController() {
     stop();
 }
 
-void TrafficController::registerLight(SynchronizedTrafficLight* light) {
+void TrafficController::registerLight(TrafficLightBase* light) {
     lights.push_back(light);
 }
 

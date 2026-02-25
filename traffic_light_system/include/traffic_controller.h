@@ -2,6 +2,7 @@
 #define TRAFFIC_CONTROLLER_H
 
 #include "colored_output.h"
+#include "traffic_light_base.h"
 #include <vector>
 #include <memory>
 #include <thread>

@@ -12,10 +12,10 @@ protected:
     std::unique_ptr<std::thread> workerThread;
 
     virtual void processEvents() = 0; 
-    virtual void handleEvent();
+    virtual void handleEvent() = 0;
 public:
     TrafficLightBase(int id) : id(id) {}
-    virtual ~TrafficLightBase() = default;
+    virtual ~TrafficLightBase() {} ;
 
     virtual void start() {
         if (isRunning.load()) return;
