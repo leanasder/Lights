@@ -3,6 +3,7 @@
 
 #include <atomic>
 #include <random>
+#include "colored_output.h"
 
 class Camera {
     int lightId;
