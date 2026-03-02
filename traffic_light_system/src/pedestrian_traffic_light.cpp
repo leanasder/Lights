@@ -19,16 +19,10 @@ PedestrianTrafficLight::~PedestrianTrafficLight() {
 
 void PedestrianTrafficLight::start() {
     TrafficLightBase::start();
-    if (camera) {
-        camera->startSimulation();
-    }
     ColoredOutput::print(id, getCurrentColor(), "Pedestrian light started");
 }
 
 void PedestrianTrafficLight::stop() {
-    if (camera) {
-        camera->stopSimulation();
-    }
     TrafficLightBase::stop();
     ColoredOutput::print(id, getCurrentColor(), "Pedestrian light stopped");
 }

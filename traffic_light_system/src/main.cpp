@@ -23,6 +23,9 @@ int main() {
     for (int i = 0; i < 15; ++i) {
         pedLight.simulateArrival(); // random arrivals
 
+        //show queue
+        std::cout << " Queue: " << pedLight.getQueueLenght() << std::endl;
+
         if (i == 3) pedLight.setGreen(true); // green is on
         if (i == 8) pedLight.setGreen(false); // red is on
 
