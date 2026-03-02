@@ -17,7 +17,7 @@ void ColoredOutput::print(int lightId, TrafficColor color, const std::string& me
             break;
         case TrafficColor::Yellow:
             colorCode = "\033[1;33m";
-            colorName = "EELLOW";
+            colorName = "YELLOW";
             symbol = "🟡";
             break;
         case TrafficColor::Red:
