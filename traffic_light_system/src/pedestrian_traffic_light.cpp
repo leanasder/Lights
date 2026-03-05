@@ -1,5 +1,6 @@
 //27.02.2026
 //02.03.2026
+// 05.03.2026
 
 #include "pedestrian_traffic_light.h"
 #include <chrono>
@@ -7,9 +8,9 @@
 
 using namespace std::chrono_literals;
 
-PedestrianTrafficLight::PedestrianTrafficLight(int id)
+PedestrianTrafficLight::PedestrianTrafficLight(int id, TrafficLightBase* oppositeLight)
     : TrafficLightBase(id),
-    camera(std::make_unique<Camera>(id)) {
+    camera(std::make_unique<Camera>(id, oppositeLight)) {
     ColoredOutput::print(id, TrafficColor::Red, "Pedestrian light created with camera");
 }
 
@@ -43,6 +44,13 @@ void PedestrianTrafficLight::setGreen(bool green) {
         }).detach();
     }
 }
+
+void PedestrianTrafficLight::processEvent(const Event& event) {
+     if (event.type == EventType::SwitchCommand) {
+            setGreen(event.color == TrafficColor::Green);
+        }
+}
+
 
 void PedestrianTrafficLight::processEvents() {
     // processing of events. Will be later

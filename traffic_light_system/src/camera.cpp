@@ -1,35 +1,37 @@
 // 27.02.2026
-#include "camera.h"
+// 05.03.2026
 
-Camera::Camera(int id) : lightId(id), rng(std::random_device{}()) {}
+// #include "camera.h"
 
-int Camera::countQueue() {
-    return queueLength.load();
-}
+// Camera::Camera(int id) : lightId(id), rng(std::random_device{}()) {}
 
-void Camera::vehiclePassed() {
-    if (queueLength > 0) {
-        queueLength--;
-    }
-}
+// int Camera::countQueue() {
+//     return queueLength.load();
+// }
 
-void Camera::pedestrianPassed() {
-    if (queueLength > 0) {
-        queueLength--;
-    }
-}
+// void Camera::vehiclePassed() {
+//     if (queueLength > 0) {
+//         queueLength--;
+//     }
+// }
 
-void Camera::simulateArrival() {
-    int newArrivals = arrivalDist(rng);
-    if (newArrivals > 0) {
-        queueLength += newArrivals;
-    }
-}
+// void Camera::pedestrianPassed() {
+//     if (queueLength > 0) {
+//         queueLength--;
+//     }
+// }
 
-void Camera::startSimulation() {
-    // TODO: start a thread to simulate arrivals
-}
+// void Camera::simulateArrival() {
+//     int newArrivals = arrivalDist(rng);
+//     if (newArrivals > 0) {
+//         queueLength += newArrivals;
+//     }
+// }
 
-void Camera::stopSimulation() {
-    // TODO: stop thread
-}
+// void Camera::startSimulation() {
+//     // TODO: start a thread to simulate arrivals
+// }
+
+// void Camera::stopSimulation() {
+//     // TODO: stop thread
+// }

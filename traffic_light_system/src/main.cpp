@@ -1,6 +1,7 @@
 //27.02.2026 - temporary test code
 //02.03.2026
 
+#include "car_traffic_light.h"
 #include "pedestrian_traffic_light.h"
 #include "colored_output.h"
 #include <thread>
@@ -15,24 +16,25 @@ int main() {
               << "    SYNCHRONIZED TRAFFIC LIGHTS SYSTEM   " << std::endl
               << "========================================="
               <<"\033[0m" << std::endl;
-   PedestrianTrafficLight pedLight(5);
-   pedLight.start();
 
-   ColoredOutput::printInfo("Testing pedestrian light for 15 seconds..."); 
-    
-    for (int i = 0; i < 15; ++i) {
-        pedLight.simulateArrival(); // random arrivals
+    CarTrafficLight* ns = new CarTrafficLight(0, Direction::North, nullptr, 
+                                             true, 2, 1, 15);
+    CarTrafficLight* sn = new CarTrafficLight(2, Direction::South, ns, 
+                                             false, 0, 1, 15);
+    CarTrafficLight* we = new CarTrafficLight(1, Direction::West, nullptr, 
+                                             true, 3, 0, 10);
+    CarTrafficLight* ew = new CarTrafficLight(3, Direction::East, we, 
+                                             false, 1, 0, 10);
 
-        //show queue
-        std::cout << " Queue: " << pedLight.getQueueLenght() << std::endl;
+    PedestrianTrafficLight* pedNorth = new PedestrianTrafficLight(4, ns); // смотрит на NS
+    PedestrianTrafficLight* pedSouth = new PedestrianTrafficLight(5, sn); // смотрит на SN
 
-        if (i == 3) pedLight.setGreen(true); // green is on
-        if (i == 8) pedLight.setGreen(false); // red is on
-
-        std::this_thread::sleep_for(1s);
-    }
-
-    pedLight.stop();
+    ns->start();
+    sn->start();
+    we->start();
+    ew->start();
+    pedNorth->start();
+    pedSouth->start();
 
     std::cout << "\033[1;32m"
               << "=========================================" << std::endl

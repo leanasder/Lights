@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include " colored_output.h"
+#include "colored_output.h"
 
 // types of events
 enum class EventType {
@@ -16,7 +16,7 @@ struct Event {
     // required fields for all types
     int senderId; // ID sender (who has created the event)
     int targetId; // ID reciever ( who intended for)
-    Event type; // type of event
+    EventType type; // type of event
 
     // Data for QueueAlert and RequestSwitch
     int queueLength; // the sender's length queue 
@@ -29,7 +29,7 @@ struct Event {
 
     // ctor for QueueAlert (4 parameters)
     Event(int from, int to, EventType t, int q)
-        : senderId(from), targetId(to), type(t), queueLength(q), congesedId(-1), color(TrafficColor::Red) {}
+        : senderId(from), targetId(to), type(t), queueLength(q), congestedId(-1), color(TrafficColor::Red) {}
 
     // ctor for RequestSwitch (5 parameters)
     Event(int from, int to, EventType t, int q, int congested)
@@ -37,5 +37,5 @@ struct Event {
 
     // ctor for SwitchCommand (4 parameters: from, to, type, color)
     Event(int from, int to, EventType t, TrafficColor c)
-        : senderId(from), targerId(to), type(t), queueLength(0), congestedId(-1), color(c) {}
-}
+        : senderId(from), targetId(to), type(t), queueLength(0), congestedId(-1), color(c) {}
+};

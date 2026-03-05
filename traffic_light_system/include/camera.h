@@ -1,34 +1,23 @@
 //27.02.2026
+// 05.03.2026
+
 #pragma once
 
-#include <atomic>
-#include <random>
-#include "colored_output.h"
-
+#include "traffic_light_base.h"
 class Camera {
-    int lightId;
-    std::atomic<int> queueLength{0};
-    
-    //for simulation random ariiving cars or pedestrians
-    std::mt19937 rng;
-    std::uniform_int_distribution<> arrivalDist{0, 3};  // 0-3 new in second 
+    int cameraId;
+    TrafficLightBase* observedLight; 
     
 public:
-    Camera(int id);
-    
-    //counting current queue
-    int countQueue();
-    
-    //simulated passage/transition (queue reduction)
-    void vehiclePassed();     // for cars
-    void pedestrianPassed();  // for pedestrians
-    
-    // simulation arriving new (queue increase)
-    void simulateArrival();
-    
-    int getQueueLength() const { return queueLength.load(); }
-    
-    //start the background simulator
-    void startSimulation();
-    void stopSimulation();
+    // ctor: the camera receives an ID and a pointer to the traffic light it is monitoring
+    Camera(int id, TrafficLightBase* target)
+        : cameraId(id), observedLight(target) {}
+
+    // get the queue length from the monitored traffic light
+    int getQueueLength() const {
+        return observedLight->getQueueLength();
+    }
+
+    // for debugging and identify
+    int getId() const { return cameraId; }    
 };

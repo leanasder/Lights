@@ -1,29 +1,35 @@
 //27.02.2026
 // 02.03.2026
+// 05.03.2026
+
 
 #pragma once
 
 #include "traffic_light_base.h"
 #include "camera.h"
 #include <memory>
+#include <atomic>
+#include <random>
 
 
 class PedestrianTrafficLight : public TrafficLightBase {
     std::atomic<bool> isGreen{false}; // true == Green, false == Red
     std::unique_ptr<Camera> camera;
+    std::atomic<int> myQueue{0};
 
 protected:
-    void processEvents() override;
-    void handleEvent() override;
+     void processEvent(const Event& event) override; 
 
 public:
-    PedestrianTrafficLight(int id);
-    ~PedestrianTrafficLight();
+    PedestrianTrafficLight(int id, TrafficLightBase* oppositeLight);
+       
+    ~PedestrianTrafficLight(); 
 
-    void start() override;
-    void stop() override;
+     void stop() override;
+     void start() override; 
 
-    void setGreen(bool green);
+     void setGreen(bool green); 
+
     bool isPedestrianGreen() const { return isGreen.load(); }
 
     //for compatibility with the common interface
@@ -32,7 +38,24 @@ public:
     }
 
     // methods for work with camera
-    int getQueueLenght() const { return camera ? camera->getQueueLength() : 0; }
-    void pedestrianPassed() { if (camera) camera->pedestrianPassed(); }
-    void simulateArrival() { if (camera) camera->simulateArrival(); }
+    int getQueueLenght() const { return myQueue.load(); }
+
+     void pedestrianPassed() {
+        if (myQueue > 0) {
+            myQueue--;
+        }
+    }
+
+    void simulateArrival() {
+        static std::mt19937 rng(std::random_device{}());
+        static std::uniform_int_distribution<> dist(0, 3);
+        myQueue += dist(rng);
+    }
+
+    int getQueueLength() const override {
+        return 0; // пока заглушка
+    }
+
+    void processEvents() override;  
+    void handleEvent() override;    
 };

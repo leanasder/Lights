@@ -36,7 +36,7 @@ protected:
 
             if (!isRunning.load()) break;
 
-            Event event = eventQueue.fron();
+            Event event = eventQueue.front();
             eventQueue.pop();
             lock.unlock();
 
@@ -78,6 +78,7 @@ public:
         queueCV.notify_one();
     }
 
+
     // ================== Registry of lights (static) =========================
 private:
     static std::map<int, TrafficLightBase*> registry;
@@ -95,7 +96,7 @@ private:
 
 public:
     // Sending an event by ID (can be called from any thread)
-    static bool sendEvent(int targerId, const Event& event) {
+    static bool sendEvent(int targetId, const Event& event) {
         std::lock_guard<std::mutex> lock(registryMutex);
         auto it = registry.find(targetId);
         if (it != registry.end()) {
