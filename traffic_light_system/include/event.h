@@ -8,7 +8,12 @@
 enum class EventType {
     QueueAlert, // "My queue has reached the threshold!" (from the traffic light to the perpendicular one)
     RequestSwitch, // "I have few cars, switch to the traffic jam!" (from traffic light to controller)
-    SwitchCommand // "Switch to this color!" (from controller to traffic lights)
+    SwitchCommand, // "Switch to this color!" (from controller to traffic lights)
+    // Новые типы для опроса
+    QueryPartnerQueue,    // request to a group partner
+    PartnerQueueResponse, // answer from partner
+    QueryOpponentGroup,   // request to the leader of the opposite group
+    OpponentGroupResponse // response from the leader of the opposite group
 };
 
 // the structure of event

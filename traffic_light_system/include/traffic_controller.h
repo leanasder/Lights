@@ -1,47 +1,33 @@
+// 06.03.2026
+
 #ifndef TRAFFIC_CONTROLLER_H
 #define TRAFFIC_CONTROLLER_H
 
-#include "colored_output.h"
 #include "traffic_light_base.h"
+#include "event.h"
 #include <vector>
-#include <memory>
-#include <thread>
-#include <atomic>
-#include <mutex>
-#include <condition_variable>
-#include <chrono>
 
-using namespace std::chrono_literals;
-
-//Preliminary announcement class SynchronizedTrafficLight;
-class SynchronizedTrafficLight;
-
-class TrafficController { 
+class TrafficController : public TrafficLightBase {
     std::vector<TrafficLightBase*> lights;
-    std::atomic<bool> isRunning{false};
-    std::atomic<bool> isStopping{false};
-    std::thread controllerThread;
-
-    std::mutex mtx;
-    std::condition_variable cv;
-    bool allLightsReady{false};
-
-    std::chrono::seconds greenDuration{5};
-    std::chrono::seconds yellowDuration{2};
-
-    void controlCycle();
+    
+protected:
+    void processEvent(const Event& event) override;
 
 public:
-    TrafficController(std::chrono::seconds greenTime = 5s,
-                    std::chrono::seconds yellowTime = 2s);
-    ~TrafficController();
+    static constexpr int CONTROLLER_ID = 1000;
 
-    void registerLight(TrafficLightBase* light);
+    TrafficController();
+    ~TrafficController();
     void start();
     void stop();
 
-    bool waitForSignal(SynchronizedTrafficLight* light);
-    bool isControllerRunning() const;
+
+    void registerLight(TrafficLightBase* light);
+
+    void processEvents() override;
+    void handleEvent() override;
+    TrafficColor getCurrentColor() const override ;
+    int getQueueLength() const override ;
 };
 
-#endif //TRAFFIC_CONTROLLER_H
+#endif

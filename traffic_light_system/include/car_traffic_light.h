@@ -39,9 +39,7 @@ class CarTrafficLight : public TrafficLightBase {
     bool waitingForOpponent;
 
 protected:
-    void processEvent(const Event& event) override {
-        // TODO: реализовать логику событий
-    }
+    void processEvent(const Event& event) override; 
 
 public:
     CarTrafficLight(int id, Direction dir, CarTrafficLight* oppositeLight, 
@@ -68,4 +66,10 @@ public:
 
     void processEvents() override; 
     void handleEvent() override;
+
+    void setOppositeLight(CarTrafficLight* opposite) {
+        camera = std::make_unique<Camera>(id, opposite);
+    }
+
+    void checkThreshold();
 };

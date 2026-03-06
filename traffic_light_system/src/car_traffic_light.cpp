@@ -1,16 +1,36 @@
 //05.03.2026
+// 06.03.2026
 
 #include "car_traffic_light.h"
 #include <chrono>
 #include <thread>
 #include <random>
+#include "event.h"
 
 using namespace std::chrono_literals;
+
+void CarTrafficLight::checkThreshold() {
+    if (!isLeader) return;  // только лидеры начинают опрос
+
+     ColoredOutput::print(id, currentColor, 
+        "checkThreshold: queue=" + std::to_string(myQueue.load()) + 
+        ", threshold=" + std::to_string(threshold) +
+        ", waiting=" + std::to_string(waitingForPartner));
+
+    if (myQueue >= threshold && !waitingForPartner && !waitingForOpponent) {
+        waitingForPartner = true;
+        partnerQueue = -1;
+        
+        Event query(id, partnerId, EventType::QueryPartnerQueue, 0);
+        TrafficLightBase::sendEvent(partnerId, query);
+        ColoredOutput::print(id, currentColor, "Starting group survey, queue=" + std::to_string(myQueue.load()));
+    }
+}
 
 void CarTrafficLight::vehiclePassed() {
     if (myQueue > 0) {
         myQueue--;
-        // later this will be added
+        checkThreshold();
     }
 }
 
@@ -18,7 +38,7 @@ void CarTrafficLight::simulateArrival() {
     static std::mt19937 rng(std::random_device{}());
     static std::uniform_int_distribution<> dist(0, 3);
     myQueue += dist(rng);
-    // later this wiil be added
+    checkThreshold();
 }
 
 CarTrafficLight::CarTrafficLight(int id, Direction dir, CarTrafficLight * oppositeLight,
@@ -80,4 +100,100 @@ void CarTrafficLight::processEvents() {
 
 void CarTrafficLight::handleEvent() {
     //implement later
+}
+
+void CarTrafficLight::processEvent(const Event& event) {
+    switch (event.type) {
+        case EventType::QueryPartnerQueue: {
+            // Меня спросили, сколько у меня машин
+            ColoredOutput::print(id, currentColor, 
+                "Received QueryPartnerQueue from " + std::to_string(event.senderId));
+            
+            Event response(id, event.senderId, EventType::PartnerQueueResponse, myQueue.load());
+            TrafficLightBase::sendEvent(event.senderId, response);
+            break;
+        }
+        
+        case EventType::PartnerQueueResponse: {
+                ColoredOutput::print(id, currentColor, 
+                    "📩 Received PartnerQueueResponse: queue=" + std::to_string(event.queueLength) +
+                    " from " + std::to_string(event.senderId));
+                
+                if (isLeader && waitingForPartner) {
+                    partnerQueue = event.queueLength;
+                    waitingForPartner = false;
+                    ColoredOutput::print(id, currentColor, 
+                        "✅ Partner queue updated to " + std::to_string(partnerQueue));
+                    
+                // ✅ ТЕПЕРЬ ОПРАШИВАЕМ ПРОТИВОПОЛОЖНУЮ ГРУППУ!
+                waitingForOpponent = true;
+                Event query(id, opponentLeaderId, EventType::QueryOpponentGroup, 0);
+                TrafficLightBase::sendEvent(opponentLeaderId, query);
+                ColoredOutput::print(id, currentColor, 
+                    "➡️ Sending QueryOpponentGroup to " + std::to_string(opponentLeaderId));
+                    
+                }
+                break;
+        }
+        
+        case EventType::QueryOpponentGroup: {
+            ColoredOutput::print(id, currentColor, 
+                "🔥🔥🔥 Received QueryOpponentGroup from " + std::to_string(event.senderId) +
+                ", isLeader=" + std::to_string(isLeader) +
+                ", partnerQueue=" + std::to_string(partnerQueue));
+            
+            if (isLeader) {
+                if (partnerQueue == -1) {
+                    ColoredOutput::print(id, currentColor, 
+                        "⏳ partnerQueue unknown, requesting from partner " + std::to_string(partnerId));
+                    waitingForPartner = true;
+                    Event query(id, partnerId, EventType::QueryPartnerQueue, 0);
+                    TrafficLightBase::sendEvent(partnerId, query);
+                } else {
+                    int total = myQueue.load() + partnerQueue;
+                    ColoredOutput::print(id, currentColor, 
+                        "📤 Sending opponent response: total=" + std::to_string(total) +
+                        " (myQueue=" + std::to_string(myQueue.load()) + 
+                        " + partnerQueue=" + std::to_string(partnerQueue) + ")");
+                    Event response(id, event.senderId, EventType::OpponentGroupResponse, total);
+                    TrafficLightBase::sendEvent(event.senderId, response);
+                }
+            } else {
+                ColoredOutput::print(id, currentColor, 
+                    "❌ Ignoring QueryOpponentGroup - not a leader");
+            }
+            break;
+        }
+        case EventType::OpponentGroupResponse: {
+            // Получили сумму противоположной группы
+            if (isLeader && waitingForOpponent) {
+                opponentGroupTotal = event.queueLength;
+                waitingForOpponent = false;
+                
+                int myTotal = myQueue.load() + partnerQueue;
+                ColoredOutput::print(id, currentColor, 
+                    "My total=" + std::to_string(myTotal) + 
+                    ", opponent total=" + std::to_string(opponentGroupTotal));
+                
+                if (myTotal > opponentGroupTotal) {
+                    // Наша группа загружена больше – просим контроллер
+                    Event req(id, 1000, EventType::RequestSwitch, myTotal, opponentGroupTotal);
+                    TrafficLightBase::sendEvent(1000, req);
+                }
+            }
+            break;
+        }
+        
+        case EventType::SwitchCommand: {
+            std::string colorStr = (event.color == TrafficColor::Green) ? "GREEN" : "RED";
+            ColoredOutput::print(id, currentColor, 
+            "📥 Received SwitchCommand to set " + colorStr);
+            setColor(event.color);
+            break;
+        }
+        
+        default:
+            ColoredOutput::print(id, currentColor, "Unknown event type");
+            break;
+    }
 }

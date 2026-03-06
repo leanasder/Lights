@@ -1,189 +1,99 @@
+// 06.03.2026
 #include "traffic_controller.h"
-// #include "synchronized_traffic_light.h"
-#include "car_traffic_light.h"
-#include <iostream>
+#include "colored_output.h"
 
-using namespace std::chrono_literals;
-
-TrafficController::TrafficController(std::chrono::seconds greenTime,
-                                     std::chrono::seconds yellowTime)
-    : greenDuration(greenTime), yellowDuration(yellowTime) {
-
+TrafficController::TrafficController() 
+    : TrafficLightBase(CONTROLLER_ID) {
+    ColoredOutput::printInfo("Controller created with ID " + std::to_string(CONTROLLER_ID));
 }
 
 TrafficController::~TrafficController() {
     stop();
 }
 
-void TrafficController::registerLight(TrafficLightBase* light) {
-    lights.push_back(light);
-}
-
 void TrafficController::start() {
-    if (isRunning.load()) return;
-
-    isRunning = true;
-    isStopping = false;
-    controllerThread = std::thread([this]() { controlCycle(); });
+    TrafficLightBase::start();
+    ColoredOutput::printInfo("Controller started");
 }
 
 void TrafficController::stop() {
-    if (!isRunning.load()) return;
-
-    isStopping = true;
-    {
-        std::lock_guard<std::mutex> lock(mtx);
-        allLightsReady = true;
-    }
-    cv.notify_all();
-
-    if (controllerThread.joinable()) {
-        controllerThread.join();
-    }
-
-    isRunning = false;
-    ColoredOutput::printInfo("Controller fully stopped");
+    TrafficLightBase::stop();
+    ColoredOutput::printInfo("Controller stopped");
 }
 
-bool TrafficController::waitForSignal(SynchronizedTrafficLight* light) {
-    std::unique_lock<std::mutex> lock(mtx);
-
-    cv.wait(lock, [this]() {
-        return allLightsReady || isStopping.load();
-    });
-
-    if (isStopping.load()) {
-        return false;
+void TrafficController::registerLight(TrafficLightBase* light) {
+    if (light) {
+        lights.push_back(light);
+        ColoredOutput::printInfo("Light " + std::to_string(light->getId()) + 
+                                " registered with controller");
     }
-
-    if (allLightsReady && !isStopping.load()) {
-        allLightsReady = false;
-    }
-
-    return true;
 }
 
-bool TrafficController::isControllerRunning() const {
-    return isRunning.load() && !isStopping.load();
-}
+void TrafficController::processEvent(const Event& event) {
+    switch (event.type) {
+        case EventType::RequestSwitch: {
+            // Лидер просит переключить фазы в его пользу
+            ColoredOutput::printInfo("🔔 CONTROLLER: Switch request from Light " + 
+                std::to_string(event.senderId) + 
+                " (myTotal=" + std::to_string(event.queueLength) + 
+                " > opponent=" + std::to_string(event.congestedId) + ")");
+            
+            // Определяем, кто есть кто
+            int requestingLeader = event.senderId;  // кто просит (лидер с большей суммой)
+            
+            // Отправляем команды всем светофорам
+            for (auto* light : lights) {
+                if (!light) continue;
+                
+                // Определяем группу светофора по ID (временная логика)
+                // NS группа: 0,2 | WE группа: 1,3
+                bool isNSGroup = (light->getId() == 0 || light->getId() == 2);
+                bool isRequesterNS = (requestingLeader == 0);  // NS лидер просит
+                
+                TrafficColor newColor;
+                if ((isNSGroup && isRequesterNS) || (!isNSGroup && !isRequesterNS)) {
+                    newColor = TrafficColor::Green;  // группе просящего - зелёный
+                } else {
+                    newColor = TrafficColor::Red;    // другой группе - красный
+                }
 
-void TrafficController::controlCycle() {
-    // using namespace std::chrono;
-
-    // //Initialization
-    // ColoredOutput::printInfo("Initializing traffic lights...");
-    // lights[0]->setColor(TrafficColor::Green);
-    // lights[1]->setColor(TrafficColor::Red);
-
-    // //First notice
-    // {
-    //     std::lock_guard<std::mutex> lock(mtx);
-    //     allLightsReady = true;
-    // }
-    // cv.notify_all();
-    // std::this_thread::sleep_for(200ms);
-
-    // int cycleCount = 0;
-    // while (isRunning.load() && !isStopping.load()) {
-    //     cycleCount++;
-
-    //     //PHASE 1
-    //     ColoredOutput::printPhase("PHASE " + std::to_string(cycleCount) +
-    //                              ": Light 0 GREEN / Light 1 RED" );
-    //     lights[0]->setColor(TrafficColor::Green);
-    //     lights[1]->setColor(TrafficColor::Red);
-
-    //     {
-    //         std::lock_guard<std::mutex> lock(mtx);
-    //         allLightsReady = true;
-    //     }
-    //     cv.notify_all();
-
-    //     size_t duration_seconds_green = static_cast<size_t>(greenDuration.count());
-    //     for (size_t i = duration_seconds_green; i > 0; --i) {
-    //         if (isRunning.load() && !isStopping.load()) {
-    //             std::cout << std::to_string(i) + " seconds remaining" << std::endl;
-    //             std::this_thread::sleep_for(1s);
-    //         }
-    //     }
-
-    //     if (!isRunning.load() ||isStopping.load()) break;
-
-    //     //TRANSITION 1
-    //     ColoredOutput::printPhase("TRANSITION: light 0 YELLOW / Light 1 RED");
-
-    //     lights[0]->setColor(TrafficColor::Yellow);
-    //     lights[1]->setColor(TrafficColor::Red);
-
-    //     {
-    //         std::lock_guard<std::mutex> lock(mtx);
-    //         allLightsReady = true;
-    //     }
-    //     cv.notify_all();
-
-    //     size_t duration_seconds = static_cast<size_t>(yellowDuration.count());
-    //     for (size_t i = duration_seconds; i > 0; --i) {
-    //         if (isRunning.load() && !isStopping.load()) {
-    //             std::cout << std::to_string(i) + " seconds remaining" << std::endl;
-    //             std::this_thread::sleep_for(1s);
-    //         }
-    //     }
-
-    //     if (!isRunning.load() || isStopping.load()) break;
-
-    //     //PHASE 2
-    //     ColoredOutput::printPhase("PHASE " + std::to_string(cycleCount) +
-    //                               ": Light 0 RED/ Light 1 GREEN");
+                ColoredOutput::printInfo("📤 Controller sending SwitchCommand to Light " + 
+                std::to_string(light->getId()) + " color=" + 
+                (newColor == TrafficColor::Green ? "GREEN" : "RED"));
+                
+                Event cmd(CONTROLLER_ID, light->getId(), EventType::SwitchCommand, newColor);
+                TrafficLightBase::sendEvent(light->getId(), cmd);
+            }
+            break;
+        }
         
-    //     lights[0]->setColor(TrafficColor::Red);
-    //     lights[1]->setColor(TrafficColor::Green);
+        case EventType::QueueAlert:
+        case EventType::QueryPartnerQueue:
+        case EventType::PartnerQueueResponse:
+        case EventType::QueryOpponentGroup:
+        case EventType::OpponentGroupResponse:
+            // Контроллер игнорирует эти события
+            break;
+            
+        default:
+            ColoredOutput::printInfo("Controller received unknown event type");
+            break;
+    }
+}
 
-    //     {
-    //         std::lock_guard<std::mutex> lock(mtx);
-    //         allLightsReady = true;
-    //     }
-    //     cv.notify_all();
+// Заглушки для чисто виртуальных методов
+void TrafficController::processEvents() {
+    // Не используется
+}
 
-    //     if (isRunning.load() && !isStopping.load()) {
-    //         size_t duration_seconds = static_cast<size_t>(greenDuration.count());
-    //         for (size_t i = duration_seconds; i > 0; --i) {
-    //             if (isRunning.load() && !isStopping.load()) {
-    //                 std::cout << std::to_string(i) + " seconds remaining" << std::endl;
-    //                 std::this_thread::sleep_for(1s);
-    //             }
-    //         }
-    //     }
+void TrafficController::handleEvent() {
+    // Не используется
+}
 
-    //     if (!isRunning.load() || isStopping.load()) break;
+TrafficColor TrafficController::getCurrentColor() const {
+    return TrafficColor::Red;  // у контроллера нет цвета
+}
 
-    //     //TRANSITION 2
-    //     ColoredOutput::printPhase("TRANSITION: Light 0 RED / Light 1 YELLOW");
-    //     lights[0]->setColor(TrafficColor::Red);
-    //     lights[1]->setColor(TrafficColor::Yellow);
-
-    //     {
-    //         std::lock_guard<std::mutex> lock(mtx);
-    //         allLightsReady = true;
-    //     }
-    //     cv.notify_all();
-
-    //     if (isRunning.load() && !isStopping.load()) {
-    //         for (size_t i = duration_seconds; i > 0; --i) {
-    //             if (isRunning.load() && !isStopping.load()) {
-    //                 std::cout << std::to_string(i) + " seconds remaining" << std::endl;
-    //                 std::this_thread::sleep_for(1s);
-    //             }
-    //         }
-    //     }
-    // }
-
-    // //Completion
-    // {
-    //     std::lock_guard<std::mutex> lock(mtx);
-    //     allLightsReady = true;
-    // }
-    // cv.notify_all();
-    // ColoredOutput::printInfo("Controller stopped");
-    ColoredOutput::printInfo("controller running (temporary)");
-    std::this_thread::sleep_for(1s);
+int TrafficController::getQueueLength() const {
+    return 0;  // у контроллера нет очереди
 }
