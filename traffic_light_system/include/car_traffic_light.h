@@ -38,6 +38,10 @@ class CarTrafficLight : public TrafficLightBase {
     bool waitingForPartner;
     bool waitingForOpponent;
 
+    // 09.03.2026 for timeout
+    std::chrono::steady_clock::time_point surveyStartTime;
+    static constexpr std::chrono::seconds SURVEY_TIMEOUT{2};
+
 protected:
     void processEvent(const Event& event) override; 
 

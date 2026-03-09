@@ -12,6 +12,17 @@ using namespace std::chrono_literals;
 void CarTrafficLight::checkThreshold() {
     if (!isLeader) return;  // только лидеры начинают опрос
 
+    // checking timeout waiting
+    auto now = std::chrono::steady_clock::now();
+    if (waitingForPartner || waitingForOpponent) {
+        if (now - surveyStartTime > SURVEY_TIMEOUT) {
+            ColoredOutput::print(id, currentColor,
+                "⚠️ Survey timeout! Resetting waiting flags");
+            waitingForOpponent = false;
+            waitingForPartner = false;   
+        }
+    }
+
      ColoredOutput::print(id, currentColor, 
         "checkThreshold: queue=" + std::to_string(myQueue.load()) + 
         ", threshold=" + std::to_string(threshold) +
@@ -56,7 +67,8 @@ CarTrafficLight::CarTrafficLight(int id, Direction dir, CarTrafficLight * opposi
     partnerQueue(-1),
     opponentGroupTotal(-1),
     waitingForPartner(false),
-    waitingForOpponent(false) { 
+    waitingForOpponent(false),
+    surveyStartTime(std::chrono::steady_clock::now()) {   
 
     ColoredOutput::print(id, TrafficColor::Red, "Car light created with camera");
 }
@@ -125,8 +137,11 @@ void CarTrafficLight::processEvent(const Event& event) {
                     ColoredOutput::print(id, currentColor, 
                         "✅ Partner queue updated to " + std::to_string(partnerQueue));
                     
+                    // sending query to opponent
+                    waitingForOpponent = true;
+                    surveyStartTime = std::chrono::steady_clock::now(); 
+
                 // ✅ ТЕПЕРЬ ОПРАШИВАЕМ ПРОТИВОПОЛОЖНУЮ ГРУППУ!
-                waitingForOpponent = true;
                 Event query(id, opponentLeaderId, EventType::QueryOpponentGroup, 0);
                 TrafficLightBase::sendEvent(opponentLeaderId, query);
                 ColoredOutput::print(id, currentColor, 
@@ -147,6 +162,7 @@ void CarTrafficLight::processEvent(const Event& event) {
                     ColoredOutput::print(id, currentColor, 
                         "⏳ partnerQueue unknown, requesting from partner " + std::to_string(partnerId));
                     waitingForPartner = true;
+                    surveyStartTime = std::chrono::steady_clock::now();
                     Event query(id, partnerId, EventType::QueryPartnerQueue, 0);
                     TrafficLightBase::sendEvent(partnerId, query);
                 } else {
@@ -179,6 +195,8 @@ void CarTrafficLight::processEvent(const Event& event) {
                     // Наша группа загружена больше – просим контроллер
                     Event req(id, 1000, EventType::RequestSwitch, myTotal, opponentGroupTotal);
                     TrafficLightBase::sendEvent(1000, req);
+                    ColoredOutput::print(id, currentColor, 
+                        "🔔 Sending RequestSwitch to controller");
                 }
             }
             break;

@@ -1,0 +1,899 @@
+[1;35m=========================================
+    SYNCHRONIZED TRAFFIC LIGHTS SYSTEM   
+=========================================[0m
+[1;37mController created with ID 1000[0m
+[1;37mController started[0m
+[11:06:08.771] 🔴 Light 0: [1;31mRED[0m - Car light created with camera
+[11:06:08.772] 🔴 Light 2: [1;31mRED[0m - Car light created with camera
+[11:06:08.772] 🔴 Light 1: [1;31mRED[0m - Car light created with camera
+[11:06:08.772] 🔴 Light 3: [1;31mRED[0m - Car light created with camera
+[11:06:08.772] 🔴 Light 4: [1;31mRED[0m - Pedestrian light created with camera
+[11:06:08.772] 🔴 Light 5: [1;31mRED[0m - Pedestrian light created with camera
+[1;37mLight 0 registered with controller[0m
+[1;37mLight 0 registered with controller[0m
+[1;37mLight 2 registered with controller[0m
+[1;37mLight 1 registered with controller[0m
+[1;37mLight 3 registered with controller[0m
+[1;37mLight 4 registered with controller[0m
+[1;37mLight 5 registered with controller[0m
+[11:06:08.772] 🔴 Light 0: [1;31mRED[0m - Car light started
+[11:06:08.772] 🔴 Light 2: [1;31mRED[0m - Car light started
+[11:06:08.772] 🔴 Light 1: [1;31mRED[0m - Car light started
+[11:06:08.772] 🔴 Light 3: [1;31mRED[0m - Car light started
+[11:06:08.772] 🔴 Light 4: [1;31mRED[0m - Pedestrian light started
+[11:06:08.772] 🔴 Light 5: [1;31mRED[0m - Pedestrian light started
+[1;37mSimulation running for 60 seconds...[0m
+[11:06:08.772] 🔴 Light 0: [1;31mRED[0m - checkThreshold: queue=0, threshold=15, waiting=0
+[11:06:08.772] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=3, threshold=10, waiting=0
+
+[0s] Queues:  NS:0 SN:3 WE:3 EW:2 PedN:0 PedS:0
+Colors:  NS:R SN:R WE:R EW:R
+[11:06:09.773] 🔴 Light 0: [1;31mRED[0m - checkThreshold: queue=1, threshold=15, waiting=0
+[11:06:09.773] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=6, threshold=10, waiting=0
+
+[1s] Queues:  NS:1 SN:6 WE:6 EW:2 PedN:0 PedS:0
+[11:06:10.774] 🔴 Light 0: [1;31mRED[0m - checkThreshold: queue=3, threshold=15, waiting=0
+[11:06:10.774] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=8, threshold=10, waiting=0
+
+[2s] Queues:  NS:3 SN:7 WE:8 EW:2 PedN:0 PedS:0
+[11:06:11.776] 🔴 Light 0: [1;31mRED[0m - checkThreshold: queue=4, threshold=15, waiting=0
+[11:06:11.776] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=10, threshold=10, waiting=0
+[11:06:11.776] 🔴 Light 1: [1;31mRED[0m - Starting group survey, queue=10
+
+[3s] Queues:  NS:4 SN:10 WE:10 EW:2 PedN:0 PedS:0
+[11:06:11.776] 🔴 Light 3: [1;31mRED[0m - Received QueryPartnerQueue from 1
+[11:06:11.776] 🔴 Light 1: [1;31mRED[0m - 📩 Received PartnerQueueResponse: queue=2 from 3
+[11:06:11.776] 🔴 Light 1: [1;31mRED[0m - ✅ Partner queue updated to 2
+[11:06:11.776] 🔴 Light 1: [1;31mRED[0m - ➡️ Sending QueryOpponentGroup to 0
+[11:06:11.776] 🔴 Light 0: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 1, isLeader=1, partnerQueue=-1
+[11:06:11.776] 🔴 Light 0: [1;31mRED[0m - ⏳ partnerQueue unknown, requesting from partner 2
+[11:06:11.776] 🔴 Light 2: [1;31mRED[0m - Received QueryPartnerQueue from 0
+[11:06:11.777] 🔴 Light 0: [1;31mRED[0m - 📩 Received PartnerQueueResponse: queue=10 from 2
+[11:06:11.777] 🔴 Light 0: [1;31mRED[0m - ✅ Partner queue updated to 10
+[11:06:11.777] 🔴 Light 0: [1;31mRED[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:11.777] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:11.777] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=12 (myQueue=10 + partnerQueue=2)
+[11:06:11.777] 🔴 Light 0: [1;31mRED[0m - My total=14, opponent total=12
+[1;37m🔔 CONTROLLER: Switch request from Light 0 (myTotal=14 > opponent=12)[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 2 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 1 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 3 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 4 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 5 color=RED[0m
+[11:06:11.777] 🔴 Light 2: [1;31mRED[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:11.777] 🔴 Light 4: [1;31mRED[0m - RED
+[11:06:11.777] 🔴 Light 1: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:11.777] 🔴 Light 1: [1;31mRED[0m - Color changed
+[11:06:11.777] 🔴 Light 0: [1;31mRED[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:11.777] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:11.777] 🟢 Light 2: [1;32mGREEN[0m - Color changed
+[11:06:11.777] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:11.777] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:11.777] 🔴 Light 3: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:11.777] 🔴 Light 3: [1;31mRED[0m - Color changed
+[11:06:11.777] 🔴 Light 5: [1;31mRED[0m - RED
+[11:06:12.785] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=6, threshold=15, waiting=0
+[11:06:12.785] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=12, threshold=10, waiting=0
+
+[4s] Queues:  NS:5 SN:9 WE:12 EW:3 PedN:0 PedS:0
+[11:06:12.785] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=3, threshold=15, waiting=0
+[11:06:12.785] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=5, threshold=15, waiting=0
+[11:06:13.801] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=8, threshold=15, waiting=0
+[11:06:13.801] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=12, threshold=10, waiting=0
+
+[5s] Queues:  NS:6 SN:11 WE:12 EW:5 PedN:0 PedS:0
+[11:06:13.801] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=7, threshold=15, waiting=0
+[11:06:13.801] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=6, threshold=15, waiting=0
+[11:06:14.801] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=5, threshold=15, waiting=0
+[11:06:14.801] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=8, threshold=15, waiting=0
+[11:06:14.801] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=13, threshold=10, waiting=0
+
+[6s] Queues:  NS:7 SN:12 WE:13 EW:5 PedN:0 PedS:0
+[11:06:14.801] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=7, threshold=15, waiting=0
+[11:06:15.817] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=10, threshold=15, waiting=0
+[11:06:15.817] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=15, threshold=10, waiting=0
+
+[7s] Queues:  NS:10 SN:14 WE:15 EW:5 PedN:0 PedS:0
+[11:06:16.830] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=11, threshold=15, waiting=0
+[11:06:16.830] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=18, threshold=10, waiting=0
+
+[8s] Queues:  NS:11 SN:15 WE:18 EW:6 PedN:0 PedS:0
+[11:06:17.832] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=12, threshold=15, waiting=0
+[11:06:17.832] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=20, threshold=10, waiting=0
+
+[9s] Queues:  NS:12 SN:18 WE:20 EW:9 PedN:0 PedS:0
+[11:06:18.833] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=15, threshold=15, waiting=0
+[11:06:18.833] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=15
+[11:06:18.833] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=23, threshold=10, waiting=0
+
+[10s] Queues:  NS:15 SN:18 WE:23 EW:9 PedN:0 PedS:0
+Colors:  NS:G SN:G WE:R EW:R
+[11:06:18.834] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:18.834] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=18 from 2
+[11:06:18.834] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 18
+[11:06:18.834] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:18.834] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:18.834] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=25 (myQueue=23 + partnerQueue=2)
+[11:06:18.834] 🟢 Light 0: [1;32mGREEN[0m - My total=33, opponent total=25
+[1;37m🔔 CONTROLLER: Switch request from Light 0 (myTotal=33 > opponent=25)[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 2 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 1 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 3 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 4 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 5 color=RED[0m
+[11:06:18.834] 🟢 Light 2: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:18.834] 🟢 Light 2: [1;32mGREEN[0m - Color changed
+[11:06:18.834] 🔴 Light 4: [1;31mRED[0m - RED
+[11:06:18.834] 🔴 Light 1: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:18.834] 🔴 Light 1: [1;31mRED[0m - Color changed
+[11:06:18.834] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:18.834] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:18.834] 🔴 Light 3: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:18.834] 🔴 Light 3: [1;31mRED[0m - Color changed
+[11:06:18.834] 🔴 Light 5: [1;31mRED[0m - RED
+[11:06:18.834] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:18.834] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:19.840] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=14, threshold=15, waiting=0
+[11:06:19.840] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=16
+[11:06:19.840] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=17, threshold=15, waiting=0
+[11:06:19.840] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=23, threshold=10, waiting=0
+
+[11s] Queues:  NS:16 SN:[20 WE:23 EW:12 PedN:0 PedS:0
+11:06:19.840] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=16, threshold=15, waiting=0
+[11:06:19.840] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:19.840] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=20 from 2
+[11:06:19.840] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 20
+[11:06:19.840] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:19.840] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:19.840] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=25 (myQueue=23 + partnerQueue=2)
+[11:06:19.840] 🟢 Light 0: [1;32mGREEN[0m - My total=36, opponent total=25
+[1;37m🔔 CONTROLLER: Switch request from Light 0 (myTotal=36 > opponent=25)[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 2 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 1 color=RED[0m
+[11:06:19.841] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:19.841] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[1;37m📤 Controller sending SwitchCommand to Light 3 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 4 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 5 color=RED[0m
+[11:06:19.841] 🟢 Light 2: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:19.841] 🟢 Light 2: [1;32mGREEN[0m - Color changed
+[11:06:19.841] 🔴 Light 4: [1;31mRED[0m - RED
+[11:06:19.841] 🔴 Light 3: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:19.841] 🔴 Light 3: [1;31mRED[0m - Color changed
+[11:06:19.841] 🔴 Light 5: [1;31mRED[0m - RED
+[11:06:19.841] 🔴 Light 1: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:19.841] 🔴 Light 1: [1;31mRED[0m - Color changed
+[11:06:19.841] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:19.841] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:20.840] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=15, threshold=15, waiting=0
+[11:06:20.841] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=15
+[11:06:20.841] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:20.841] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=16, threshold=15, waiting=1
+[11:06:20.841] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=24, threshold=10, waiting=0
+
+[12s] Queues:  NS:15 SN:19 WE:24 EW:14 PedN:0 PedS:0
+[11:06:20.841] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=15, threshold=15, waiting=1
+[11:06:20.841] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=19 from 2
+[11:06:20.841] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 19
+[11:06:20.841] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:20.841] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:20.841] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=26 (myQueue=24 + partnerQueue=2)
+[11:06:20.841] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=14, threshold=15, waiting=1
+[11:06:20.841] 🟢 Light 0: [1;32mGREEN[0m - My total=33, opponent total=26
+[1;37m🔔 CONTROLLER: Switch request from Light 0 (myTotal=33 > opponent=26)[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[11:06:20.841] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=13, threshold=15, waiting=0
+[11:06:20.841] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:20.841] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 2 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 1 color=RED[0m
+[11:06:20.842] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:20.842] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[1;37m📤 Controller sending SwitchCommand to Light 3 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 4 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 5 color=RED[0m
+[11:06:20.842] 🔴 Light 1: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:20.842] 🔴 Light 1: [1;31mRED[0m - Color changed
+[11:06:20.842] 🔴 Light 3: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:20.842] 🔴 Light 3: [1;31mRED[0m - Color changed
+[11:06:20.842] 🔴 Light 5: [1;31mRED[0m - RED
+[11:06:20.842] 🔴 Light 4: [1;31mRED[0m - RED
+[11:06:20.842] 🟢 Light 2: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:20.842] 🟢 Light 2: [1;32mGREEN[0m - Color changed
+[11:06:21.841] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=12, threshold=15, waiting=0
+[11:06:21.841] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=12, threshold=15, waiting=0
+[11:06:21.842] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=25, threshold=10, waiting=0
+
+[13s] Queues:  NS:9 SN:18 WE:25 EW:14 PedN:0 PedS:0
+[11:06:21.842] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=9, threshold=15, waiting=0
+[11:06:21.842] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=11, threshold=15, waiting=0
+[11:06:21.842] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=10, threshold=15, waiting=0
+[11:06:21.842] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=8, threshold=15, waiting=0
+[11:06:21.842] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=7, threshold=15, waiting=0
+[11:06:22.842] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=6, threshold=15, waiting=0
+[11:06:22.842] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=8, threshold=15, waiting=0
+[11:06:22.842] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=28, threshold=10, waiting=0
+
+[14s] Queues:  NS:7 SN:17 WE:28 EW:15 PedN:0 PedS:0
+[11:06:22.842] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=7, threshold=15, waiting=0
+[11:06:22.842] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=6, threshold=15, waiting=0
+[11:06:22.843] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=5, threshold=15, waiting=0
+[11:06:23.846] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=8, threshold=15, waiting=0
+[11:06:23.846] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=28, threshold=10, waiting=0
+
+[15s] Queues:  NS:8 SN:18 WE:28 EW:15 PedN:0 PedS:0
+[11:06:23.846] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=7, threshold=15, waiting=0
+[11:06:23.846] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=6, threshold=15, waiting=0
+[11:06:24.846] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=7, threshold=15, waiting=0
+[11:06:24.847] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=29, threshold=10, waiting=0
+
+[16s] Queues:  NS:7 SN:20 WE:29 EW:17 PedN:0 PedS:0
+[11:06:25.850] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=7, threshold=15, waiting=0
+[11:06:25.850] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=32, threshold=10, waiting=0
+
+[17s] Queues:  NS:7 SN:20 WE:32 EW:18 PedN:0 PedS:0
+[11:06:26.858] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=10, threshold=15, waiting=0
+[11:06:26.858] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=33, threshold=10, waiting=0
+
+[18s] Queues:  NS:10 SN:23 WE:33 EW:21 PedN:0 PedS:0
+[11:06:27.866] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=11, threshold=15, waiting=0
+[11:06:27.867] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=34, threshold=10, waiting=0
+
+[19s] Queues:  NS:11 SN:25 WE:34 EW:22 PedN:0 PedS:0
+[11:06:28.870] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=12, threshold=15, waiting=0
+[11:06:28.870] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=34, threshold=10, waiting=0
+
+[20s] Queues:  NS:12 SN:25 WE:34 EW:22 PedN:0 PedS:0
+Colors:  NS:G SN:G WE:R EW:R
+[11:06:29.871] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=12, threshold=15, waiting=0
+[11:06:29.871] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=37, threshold=10, waiting=0
+
+[21s] Queues:  NS:12 SN:26 WE:37 EW:25 PedN:0 PedS:0
+[11:06:30.879] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=15, threshold=15, waiting=0
+[11:06:30.880] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=15
+[11:06:30.880] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:30.880] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=38, threshold=10, waiting=0
+
+[22s] Queues:  NS:15 SN:29 WE:38 EW:26 PedN:0 PedS:0
+[11:06:30.880] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=29 from 2
+[11:06:30.880] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 29
+[11:06:30.880] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:30.880] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:30.880] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=40 (myQueue=38 + partnerQueue=2)
+[11:06:30.880] 🟢 Light 0: [1;32mGREEN[0m - My total=44, opponent total=40
+[1;37m🔔 CONTROLLER: Switch request from Light 0 (myTotal=44 > opponent=40)[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 2 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 1 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 3 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 4 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 5 color=RED[0m
+[11:06:30.880] 🔴 Light 1: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:30.880] 🔴 Light 1: [1;31mRED[0m - Color changed
+[11:06:30.880] 🔴 Light 3: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:30.880] 🔴 Light 3: [1;31mRED[0m - Color changed
+[11:06:30.880] 🟢 Light 2: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:30.880] 🟢 Light 2: [1;32mGREEN[0m - Color changed
+[11:06:30.880] 🔴 Light 5: [1;31mRED[0m - RED
+[11:06:30.880] 🔴 Light 4: [1;31mRED[0m - RED
+[11:06:30.880] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:30.880] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:30.881] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:30.881] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:31.885] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=17, threshold=15, waiting=0
+[11:06:31.885] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=16, threshold=15, waiting=0
+[11:06:31.885] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=16
+[11:06:31.885] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=38, threshold=10, waiting=0
+
+[23s] Queues:  NS:15 SN:29 WE:38 EW:26 PedN:0 PedS:0
+[11:06:31.885] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=15, threshold=15, waiting=1
+[11:06:31.885] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:31.885] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=29 from 2
+[11:06:31.886] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 29
+[11:06:31.886] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:31.886] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:31.886] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=40 (myQueue=38 + partnerQueue=2)
+[11:06:31.886] 🟢 Light 0: [1;32mGREEN[0m - My total=44, opponent total=40
+[1;37m🔔 CONTROLLER: Switch request from Light 0 (myTotal=44 > opponent=40)[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 2 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 1 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 3 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 4 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 5 color=RED[0m
+[11:06:31.886] 🟢 Light 2: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:31.886] 🔴 Light 5: [1;31mRED[0m - RED
+[11:06:31.886] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:31.886] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:31.886] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:31.886] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:31.886] 🔴 Light 4: [1;31mRED[0m - RED
+[11:06:31.886] 🟢 Light 2: [1;32mGREEN[0m - Color changed
+[11:06:31.886] 🔴 Light 3: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:31.887] 🔴 Light 3: [1;31mRED[0m - Color changed
+[11:06:31.887] 🔴 Light 1: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:31.887] 🔴 Light 1: [1;31mRED[0m - Color changed
+[11:06:32.886] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=17, threshold=15, waiting=0
+[11:06:32.886] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=15
+[11:06:32.886] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=39, threshold=10, waiting=0
+
+[24s] Queues:  NS:15 SN:28 WE:39 EW:26 PedN:0 PedS:0
+[11:06:32.886] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=16, threshold=15, waiting=0
+[11:06:32.886] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=15, threshold=15, waiting=0
+[11:06:32.886] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:32.886] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=28 from 2
+[11:06:32.886] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 28
+[11:06:32.886] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:32.886] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:32.886] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=41 (myQueue=39 + partnerQueue=2)
+[11:06:32.886] 🟢 Light 0: [1;32mGREEN[0m - My total=41, opponent total=41
+[11:06:32.886] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=13, threshold=15, waiting=0
+[11:06:32.886] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=14, threshold=15, waiting=0
+[11:06:33.887] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=14, threshold=15, waiting=0
+[11:06:33.888] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=42, threshold=10, waiting=0
+
+[25s] Queues:  NS:13 SN:27 WE:42 EW:28 PedN:0 PedS:0
+[11:06:33.888] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=12, threshold=15, waiting=0
+[11:06:33.888] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=11, threshold=15, waiting=0
+[11:06:33.888] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=10, threshold=15, waiting=0
+[11:06:33.888] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=13, threshold=15, waiting=0
+[11:06:34.889] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=9, threshold=15, waiting=0
+[11:06:34.889] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=12, threshold=15, waiting=0
+[11:06:34.889] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=42, threshold=10, waiting=0
+
+[26s] Queues:  NS:11 SN:27 WE:42 EW:30 PedN:0 PedS:0
+[11:06:34.890] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=11, threshold=15, waiting=0
+[11:06:35.890] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=11, threshold=15, waiting=0
+[11:06:35.890] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=45, threshold=10, waiting=0
+
+[27s] Queues:  NS:11 SN:28 WE:45 EW:32 PedN:0 PedS:0
+[11:06:36.891] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=13, threshold=15, waiting=0
+[11:06:36.891] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=45, threshold=10, waiting=0
+
+[28s] Queues:  NS:13 SN:28 WE:45 EW:32 PedN:0 PedS:0
+[11:06:37.906] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=15, threshold=15, waiting=0
+[11:06:37.906] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=15
+[11:06:37.906] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=45, threshold=10, waiting=0
+
+[[29s] Queues:  NS:15 SN:30 WE:45 EW:34 PedN:0 PedS:0
+11:06:37.906] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:37.906] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=30 from 2
+[11:06:37.906] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 30
+[11:06:37.906] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:37.906] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:37.906] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=47 (myQueue=45 + partnerQueue=2)
+[11:06:37.906] 🟢 Light 0: [1;32mGREEN[0m - My total=45, opponent total=47
+[11:06:38.906] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=17, threshold=15, waiting=0
+[11:06:38.906] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=17
+[11:06:38.906] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=48, threshold=10, waiting=0
+
+[30s] Queues:  NS:17 SN:33 WE:48 EW:36 PedN:0 PedS:0
+Colors:  NS:G SN:G WE:R EW:R
+[11:06:38.906] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:38.907] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=33 from 2
+[11:06:38.907] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 33
+[11:06:38.907] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:38.907] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:38.907] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=50 (myQueue=48 + partnerQueue=2)
+[11:06:38.907] 🟢 Light 0: [1;32mGREEN[0m - My total=50, opponent total=50
+[11:06:39.907] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=18, threshold=15, waiting=0
+[11:06:39.907] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=18
+[11:06:39.907] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=49, threshold=10, waiting=0
+
+[31s] Queues:  NS:18 SN:33 WE:49 EW:37 PedN:0 PedS:0
+[11:06:39.907] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:39.908] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=33 from 2
+[11:06:39.908] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 33
+[11:06:39.908] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:39.908] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:39.908] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=51 (myQueue=49 + partnerQueue=2)
+[11:06:39.908] 🟢 Light 0: [1;32mGREEN[0m - My total=51, opponent total=51
+[11:06:40.952] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=20, threshold=15, waiting=0
+[11:06:40.952] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=20
+[11:06:40.952] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:40.952] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=51, threshold=10, waiting=0
+
+[32s] Queues:  NS:20 SN:33 WE:51 EW:40 PedN:0 PedS:0
+[11:06:40.952] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=33 from 2
+[11:06:40.952] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 33
+[11:06:40.952] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:40.952] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:40.952] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=53 (myQueue=51 + partnerQueue=2)
+[11:06:40.952] 🟢 Light 0: [1;32mGREEN[0m - My total=53, opponent total=53
+[11:06:41.953] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=22, threshold=15, waiting=0
+[11:06:41.953] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=22
+[11:06:41.953] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=52, threshold=10, waiting=0
+
+[33s] Queues:  NS:22 SN:36 WE:52 EW:41 PedN:0 PedS:0
+[11:06:41.953] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:41.953] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=36 from 2
+[11:06:41.953] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 36
+[11:06:41.953] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:41.953] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:41.953] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=54 (myQueue=52 + partnerQueue=2)
+[11:06:41.953] 🟢 Light 0: [1;32mGREEN[0m - My total=58, opponent total=54
+[1;37m🔔 CONTROLLER: Switch request from Light 0 (myTotal=58 > opponent=54)[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 2 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 1 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 3 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 4 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 5 color=RED[0m
+[11:06:41.953] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:41.953] 🔴 Light 5: [1;31mRED[0m - RED
+[11:06:41.953] 🟢 Light 2: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:41.953] 🟢 Light 2: [1;32mGREEN[0m - Color changed
+[11:06:41.953] 🔴 Light 4: [1;31mRED[0m - RED
+[11:06:41.953] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:41.953] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:41.953] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:41.954] 🔴 Light 3: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:41.954] 🔴 Light 3: [1;31mRED[0m - Color changed
+[11:06:41.954] 🔴 Light 1: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:41.954] 🔴 Light 1: [1;31mRED[0m - Color changed
+[11:06:42.953] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=22, threshold=15, waiting=0
+[11:06:42.953] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=22
+[11:06:42.953] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=54, threshold=10, waiting=0
+
+[34s] Queues:  NS:22 SN:39 WE:54 EW:42 PedN:0 PedS:0
+[11:06:42.954] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=39 from 2
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 39
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:42.954] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=21, threshold=15, waiting=0
+[11:06:42.954] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=56 (myQueue=54 + partnerQueue=2)
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=20, threshold=15, waiting=0
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=20
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - My total=59, opponent total=56
+[1;37m🔔 CONTROLLER: Switch request from Light 0 (myTotal=59 > opponent=56)[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 2 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 1 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 3 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 4 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 5 color=RED[0m
+[11:06:42.954] 🔴 Light 5: [1;31mRED[0m - RED
+[11:06:42.954] 🔴 Light 1: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:42.954] 🔴 Light 1: [1;31mRED[0m - Color changed
+[11:06:42.954] 🔴 Light 3: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:42.954] 🔴 Light 3: [1;31mRED[0m - Color changed
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:42.954] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:42.954] 🟢 Light 2: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:42.954] 🟢 Light 2: [1;32mGREEN[0m - Color changed
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=38 from 2
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 38
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:42.954] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:42.954] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=56 (myQueue=54 + partnerQueue=2)
+[11:06:42.954] 🟢 Light 0: [1;32mGREEN[0m - My total=58, opponent total=56
+[1;37m🔔 CONTROLLER: Switch request from Light 0 (myTotal=58 > opponent=56)[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 2 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 1 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 3 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 4 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 5 color=RED[0m
+[11:06:42.955] 🟢 Light 2: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:42.955] 🟢 Light 2: [1;32mGREEN[0m - Color changed
+[11:06:42.955] 🔴 Light 1: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:42.955] 🔴 Light 1: [1;31mRED[0m - Color changed
+[11:06:42.955] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:42.955] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:42.955] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:06:42.955] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:06:42.955] 🔴 Light 3: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:06:42.955] 🔴 Light 3: [1;31mRED[0m - Color changed
+[11:06:42.955] 🔴 Light 5: [1;31mRED[0m - RED
+[11:06:42.955] 🔴 Light 4: [1;31mRED[0m - RED
+[11:06:42.955] 🔴 Light 4: [1;31mRED[0m - RED
+[11:06:43.956] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=19, threshold=15, waiting=0
+[11:06:43.957] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=19
+[11:06:43.957] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=18, threshold=15, waiting=1
+[11:06:43.957] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:43.957] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=19, threshold=15, waiting=1
+[11:06:43.957] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=56, threshold=10, waiting=0
+
+[35s] Queues:  NS:15 SN:37 WE:56 EW:43 PedN:0 PedS:0
+[11:06:43.957] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=18, threshold=15, waiting=1
+[11:06:43.957] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=17, threshold=15, waiting=1
+[11:06:43.957] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=16, threshold=15, waiting=1
+[11:06:43.957] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=15, threshold=15, waiting=1
+[11:06:43.957] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=36 from 2
+[11:06:43.957] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 36
+[11:06:43.957] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:43.957] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:43.957] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=58 (myQueue=56 + partnerQueue=2)
+[11:06:43.957] 🟢 Light 0: [1;32mGREEN[0m - My total=51, opponent total=58
+[11:06:44.957] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=14, threshold=15, waiting=0
+[11:06:44.957] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=13, threshold=15, waiting=0
+[11:06:44.958] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=16, threshold=15, waiting=0
+[11:06:44.958] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=56, threshold=10, waiting=0
+
+[36s] Queues:  NS:12 SN:33 WE:56 EW:44 PedN:0 PedS:0
+[11:06:44.958] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=15, threshold=15, waiting=0
+[11:06:44.958] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=14, threshold=15, waiting=0
+[11:06:44.958] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=13, threshold=15, waiting=0
+[11:06:44.958] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=12, threshold=15, waiting=0
+[11:06:45.959] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=14, threshold=15, waiting=0
+[11:06:45.959] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=59, threshold=10, waiting=0
+
+[37s] Queues:  NS:11 SN:31 WE:59 EW:44 PedN:0 PedS:0
+[11:06:45.959] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=14, threshold=15, waiting=0
+[11:06:45.959] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=13, threshold=15, waiting=0
+[11:06:45.959] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=12, threshold=15, waiting=0
+[11:06:45.959] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=11, threshold=15, waiting=0
+[11:06:46.961] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=13, threshold=15, waiting=0
+[11:06:46.961] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=60, threshold=10, waiting=0
+
+[38s] Queues:  NS:13 SN:32 WE:60 EW:46 PedN:0 PedS:0
+[11:06:47.963] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=13, threshold=15, waiting=0
+[11:06:47.963] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=63, threshold=10, waiting=0
+
+[39s] Queues:  NS:13 SN:34 WE:63 EW:48 PedN:0 PedS:0
+[11:06:48.964] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=14, threshold=15, waiting=0
+[11:06:48.964] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=65, threshold=10, waiting=0
+
+[40s] Queues:  NS:14 SN:37 WE:65 EW:50 PedN:0 PedS:0
+Colors:  NS:G SN:G WE:R EW:R
+[11:06:49.964] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=16, threshold=15, waiting=0
+[11:06:49.964] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=16
+[11:06:49.964] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=68, threshold=10, waiting=0
+[
+[41s] Queues:  NS:16 SN:37 WE:68 EW:50 PedN:0 PedS:0
+11:06:49.964] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:49.965] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=37 from 2
+[11:06:49.965] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 37
+[11:06:49.965] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:49.965] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:49.965] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=70 (myQueue=68 + partnerQueue=2)
+[11:06:49.965] 🟢 Light 0: [1;32mGREEN[0m - My total=53, opponent total=70
+[11:06:50.965] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=19, threshold=15, waiting=0
+[11:06:50.965] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=19
+[11:06:50.965] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=69, threshold=10, waiting=0
+
+[42s] Queues:  NS:19 SN:38 WE:69 EW:53 PedN:0 PedS:0
+[11:06:50.966] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:50.966] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=38 from 2
+[11:06:50.966] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 38
+[11:06:50.966] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:50.966] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:50.966] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=71 (myQueue=69 + partnerQueue=2)
+[11:06:50.966] 🟢 Light 0: [1;32mGREEN[0m - My total=57, opponent total=71
+[11:06:51.980] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=21, threshold=15, waiting=0
+[11:06:51.980] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=21
+[11:06:51.980] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=71, threshold=10, waiting=0
+
+[43s] Queues:  NS:21 SN:40 WE:71 EW:54 PedN:0 PedS:0
+[11:06:51.980] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:51.980] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=40 from 2
+[11:06:51.980] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 40
+[11:06:51.980] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:51.980] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:51.980] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=73 (myQueue=71 + partnerQueue=2)
+[11:06:51.981] 🟢 Light 0: [1;32mGREEN[0m - My total=61, opponent total=73
+[11:06:52.981] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=21, threshold=15, waiting=0
+[11:06:52.981] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=21
+[11:06:52.981] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=71, threshold=10, waiting=0
+
+[44s] Queues:  NS:21 SN:43 WE:71 EW:56 PedN:0 PedS:0
+[11:06:52.981] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:52.981] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=43 from 2
+[11:06:52.981] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 43
+[11:06:52.981] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:52.981] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:52.981] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=73 (myQueue=71 + partnerQueue=2)
+[11:06:52.981] 🟢 Light 0: [1;32mGREEN[0m - My total=64, opponent total=73
+[11:06:53.982] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=21, threshold=15, waiting=0
+[11:06:53.983] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=21
+[11:06:53.983] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=71, threshold=10, waiting=0
+
+[45s] Queues:  NS:21[ SN:43 WE:71 EW:58 PedN:0 PedS:0
+11:06:53.983] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:53.983] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=43 from 2
+[11:06:53.983] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 43
+[11:06:53.983] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:53.983] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:53.983] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=73 (myQueue=71 + partnerQueue=2)
+[11:06:53.983] 🟢 Light 0: [1;32mGREEN[0m - My total=64, opponent total=73
+[11:06:54.983] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=21, threshold=15, waiting=0
+[11:06:54.983] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=21
+[11:06:54.983] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=71, threshold=10, waiting=0
+
+[46s] Queues:  NS:21 SN:45 WE:71 EW:61 PedN:0 PedS:0
+[11:06:54.983] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:54.984] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=45 from 2
+[11:06:54.984] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 45
+[11:06:54.984] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:54.984] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:54.984] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=73 (myQueue=71 + partnerQueue=2)
+[11:06:54.984] 🟢 Light 0: [1;32mGREEN[0m - My total=66, opponent total=73
+[11:06:55.983] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=22, threshold=15, waiting=0
+[11:06:55.983] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=22
+[11:06:55.983] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=73, threshold=10, waiting=0
+
+[47s] Queues:  NS:22 SN:47 WE:73 EW:61 PedN:0 PedS:0
+[11:06:55.983] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:55.983] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=47 from 2
+[11:06:55.983] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 47
+[11:06:55.983] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:55.983] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:55.983] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=75 (myQueue=73 + partnerQueue=2)
+[11:06:55.984] 🟢 Light 0: [1;32mGREEN[0m - My total=69, opponent total=75
+[11:06:56.984] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=22, threshold=15, waiting=0
+[11:06:56.984] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=22
+[11:06:56.984] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=74, threshold=10, waiting=0
+
+[48s] Queues:  NS:22 SN:49 WE:74 EW:63 PedN:0 PedS:0
+[11:06:56.984] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:56.984] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=49 from 2
+[11:06:56.984] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 49
+[11:06:56.984] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:56.984] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:56.984] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=76 (myQueue=74 + partnerQueue=2)
+[11:06:56.984] 🟢 Light 0: [1;32mGREEN[0m - My total=71, opponent total=76
+[11:06:58.002] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=25, threshold=15, waiting=0
+[11:06:58.002] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:58.003] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=25
+[11:06:58.003] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=49 from 2
+[11:06:58.003] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 49
+[11:06:58.003] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:58.003] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=76, threshold=10, waiting=0
+[11:06:58.003] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:58.003] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=78 (myQueue=76 + partnerQueue=2)
+
+[49s] Queues:  NS:25 SN:50 WE:76 EW:66 PedN:0 PedS:0
+[11:06:58.003] 🟢 Light 0: [1;32mGREEN[0m - My total=74, opponent total=78
+[11:06:59.004] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=26, threshold=15, waiting=0
+[11:06:59.004] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:06:59.004] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=26
+[11:06:59.004] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=76, threshold=10, waiting=0
+
+[50s] Queues:  NS:26 SN:53 WE:76 EW:69 PedN:0 PedS:0
+Colors:  NS:G SN:G WE:R EW:R
+[11:06:59.004] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=50 from 2
+[11:06:59.004] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 50
+[11:06:59.004] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:06:59.004] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:06:59.004] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=78 (myQueue=76 + partnerQueue=2)
+[11:06:59.004] 🟢 Light 0: [1;32mGREEN[0m - My total=76, opponent total=78
+[11:07:00.008] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=29, threshold=15, waiting=0
+[11:07:00.008] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:07:00.008] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=53 from 2
+[11:07:00.008] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 53
+[11:07:00.008] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:07:00.008] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:07:00.008] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=78 (myQueue=76 + partnerQueue=2)
+[11:07:00.008] 🟢 Light 0: [1;32mGREEN[0m - My total=82, opponent total=78
+[11:07:00.008] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=29
+[11:07:00.009] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=76, threshold=10, waiting=0
+
+[51s] Queues:  NS:29 SN:56 WE:76 EW:71 PedN:0 PedS:0
+[1;37m🔔 CONTROLLER: Switch request from Light 0 (myTotal=82 > opponent=78)[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 2 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 1 color=RED[0m
+[11:07:00.009] 🟢 Light 2: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:07:00.009] 🟢 Light 2: [1;32mGREEN[0m - Color changed
+[1;37m📤 Controller sending SwitchCommand to Light 3 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 4 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 5 color=RED[0m
+[11:07:00.009] 🔴 Light 5: [1;31mRED[0m - RED
+[11:07:00.009] 🔴 Light 3: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:07:00.009] 🔴 Light 3: [1;31mRED[0m - Color changed
+[11:07:00.009] 🔴 Light 1: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:07:00.009] 🔴 Light 1: [1;31mRED[0m - Color changed
+[11:07:00.009] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:07:00.009] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:07:00.009] 🔴 Light 4: [1;31mRED[0m - RED
+[11:07:00.009] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:07:00.009] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:07:01.009] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=29, threshold=15, waiting=0
+[11:07:01.009] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=29
+[11:07:01.009] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=77, threshold=10, waiting=0
+
+[52s] Queues:  NS:29 SN:56 WE:77 EW:71 PedN:0 PedS:0
+[11:07:01.009] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:07:01.009] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=56 from 2
+[11:07:01.009] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 56
+[11:07:01.009] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:07:01.009] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:07:01.009] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=79 (myQueue=77 + partnerQueue=2)
+[11:07:01.009] 🟢 Light 0: [1;32mGREEN[0m - My total=85, opponent total=79
+[1;37m🔔 CONTROLLER: Switch request from Light 0 (myTotal=85 > opponent=79)[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 2 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 1 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 3 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 4 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 5 color=RED[0m
+[11:07:01.009] 🔴 Light 5: [1;31mRED[0m - RED
+[11:07:01.009] 🔴 Light 1: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:07:01.009] 🔴 Light 1: [1;31mRED[0m - Color changed
+[11:07:01.009] 🔴 Light 3: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:07:01.010] 🔴 Light 3: [1;31mRED[0m - Color changed
+[11:07:01.010] 🟢 Light 2: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:07:01.010] 🟢 Light 2: [1;32mGREEN[0m - Color changed
+[11:07:01.010] 🔴 Light 4: [1;31mRED[0m - RED
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=28, threshold=15, waiting=0
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=28
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:07:01.010] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=55 from 2
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 55
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:07:01.010] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:07:01.010] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=79 (myQueue=77 + partnerQueue=2)
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - My total=83, opponent total=79
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=27, threshold=15, waiting=0
+[1;37m🔔 CONTROLLER: Switch request from Light 0 (myTotal=83 > opponent=79)[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[11:07:01.010] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=55 from 2
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 55
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:07:01.010] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:07:01.010] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=79 (myQueue=77 + partnerQueue=2)
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - My total=82, opponent total=79
+[11:07:01.010] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=27
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 2 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 1 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 3 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 4 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 5 color=RED[0m
+[1;37m🔔 CONTROLLER: Switch request from Light 0 (myTotal=82 > opponent=79)[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 0 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 2 color=GREEN[0m
+[1;37m📤 Controller sending SwitchCommand to Light 1 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 3 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 4 color=RED[0m
+[1;37m📤 Controller sending SwitchCommand to Light 5 color=RED[0m
+[11:07:01.011] 🔴 Light 1: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:07:01.011] 🔴 Light 1: [1;31mRED[0m - Color changed
+[11:07:01.011] 🔴 Light 1: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:07:01.011] 🟢 Light 2: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:07:01.011] 🟢 Light 2: [1;32mGREEN[0m - Color changed
+[11:07:01.011] 🔴 Light 3: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:07:01.011] 🔴 Light 3: [1;31mRED[0m - Color changed
+[11:07:01.011] 🔴 Light 3: [1;31mRED[0m - 📥 Received SwitchCommand to set RED
+[11:07:01.011] 🔴 Light 3: [1;31mRED[0m - Color changed
+[11:07:01.011] 🔴 Light 4: [1;31mRED[0m - RED
+[11:07:01.011] 🔴 Light 4: [1;31mRED[0m - RED
+[11:07:01.011] 🔴 Light 1: [1;31mRED[0m - Color changed
+[11:07:01.011] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:07:01.011] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:07:01.011] 🔴 Light 5: [1;31mRED[0m - RED
+[11:07:01.011] 🔴 Light 5: [1;31mRED[0m - RED
+[11:07:01.011] 🟢 Light 2: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:07:01.011] 🟢 Light 2: [1;32mGREEN[0m - Color changed
+[11:07:01.011] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:07:01.011] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:07:01.011] 🟢 Light 0: [1;32mGREEN[0m - 📥 Received SwitchCommand to set GREEN
+[11:07:01.011] 🟢 Light 0: [1;32mGREEN[0m - Color changed
+[11:07:02.021] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=26, threshold=15, waiting=0
+[11:07:02.021] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=26, threshold=15, waiting=1
+[11:07:02.021] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=77, threshold=10, waiting=0
+
+[53s] Queues:  NS:26 SN:58 WE:77 EW:73 PedN:0 PedS:0
+[11:07:02.021] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=26
+[11:07:02.022] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=23, threshold=15, waiting=1
+[11:07:02.022] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:07:02.022] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=24, threshold=15, waiting=1
+[11:07:02.022] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=25, threshold=15, waiting=1
+[11:07:02.022] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=21, threshold=15, waiting=1
+[11:07:02.022] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=20, threshold=15, waiting=1
+[11:07:02.022] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=19, threshold=15, waiting=1
+[11:07:02.022] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=55 from 2
+[11:07:02.022] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 55
+[11:07:02.022] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:07:02.022] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=21, threshold=15, waiting=1
+[11:07:02.022] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:07:02.022] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=79 (myQueue=77 + partnerQueue=2)
+[11:07:02.022] 🟢 Light 0: [1;32mGREEN[0m - My total=74, opponent total=79
+[11:07:03.041] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=18, threshold=15, waiting=0
+[11:07:03.041] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=17, threshold=15, waiting=1
+[11:07:03.041] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=16, threshold=15, waiting=1
+[11:07:03.041] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=77, threshold=10, waiting=0
+
+[54s] Queues:  NS:15 SN:53 WE:77 EW:74 PedN:0 PedS:0
+[11:07:03.041] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=14, threshold=15, waiting=1
+[11:07:03.042] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=16, threshold=15, waiting=1
+[11:07:03.042] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=17
+[11:07:03.042] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=15, threshold=15, waiting=1
+[11:07:03.042] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=14, threshold=15, waiting=1
+[11:07:03.042] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=13, threshold=15, waiting=1
+[11:07:03.042] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=15, threshold=15, waiting=1
+[11:07:03.042] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:07:03.042] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=53 from 2
+[11:07:03.042] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 53
+[11:07:03.042] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:07:03.042] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:07:03.042] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=79 (myQueue=77 + partnerQueue=2)
+[11:07:03.042] 🟢 Light 0: [1;32mGREEN[0m - My total=67, opponent total=79
+[11:07:04.042] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=13, threshold=15, waiting=0
+[11:07:04.043] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=12, threshold=15, waiting=0
+[11:07:04.043] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=11, threshold=15, waiting=0
+[11:07:04.043] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=10, threshold=15, waiting=0
+[11:07:04.043] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=9, threshold=15, waiting=0
+[11:07:04.043] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=11, threshold=15, waiting=0
+[11:07:04.043] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=77, threshold=10, waiting=0
+
+[55s] Queues:  NS:10 SN:52 WE:77 EW:76 PedN:0 PedS:0
+[11:07:04.043] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=10, threshold=15, waiting=0
+[11:07:05.043] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=13, threshold=15, waiting=0
+[11:07:05.044] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=80, threshold=10, waiting=0
+
+[56s] Queues:  NS:13 SN:54 WE:80 EW:76 PedN:0 PedS:0
+[11:07:06.044] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=15, threshold=15, waiting=0
+[11:07:06.044] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=15
+[11:07:06.044] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=83, threshold=10, waiting=0
+
+[57s] Queues:  NS:15 SN:57 WE:83 EW:78 PedN:0 PedS:0
+[11:07:06.044] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:07:06.044] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=57 from 2
+[11:07:06.044] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 57
+[11:07:06.044] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:07:06.044] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:07:06.044] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=85 (myQueue=83 + partnerQueue=2)
+[11:07:06.044] 🟢 Light 0: [1;32mGREEN[0m - My total=72, opponent total=85
+[11:07:07.045] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=16, threshold=15, waiting=0
+[11:07:07.045] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=16
+[11:07:07.045] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=84, threshold=10, waiting=0
+
+[58s] Queues:  NS:16 SN:57 WE:84 EW:78 PedN:0 PedS:0
+[11:07:07.046] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:07:07.046] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=57 from 2
+[11:07:07.046] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 57
+[11:07:07.046] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:07:07.046] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:07:07.046] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=86 (myQueue=84 + partnerQueue=2)
+[11:07:07.046] 🟢 Light 0: [1;32mGREEN[0m - My total=73, opponent total=86
+[11:07:08.046] 🟢 Light 0: [1;32mGREEN[0m - checkThreshold: queue=17, threshold=15, waiting=0
+[11:07:08.046] 🟢 Light 0: [1;32mGREEN[0m - Starting group survey, queue=17
+[11:07:08.046] 🔴 Light 1: [1;31mRED[0m - checkThreshold: queue=86, threshold=10, waiting=0
+
+[59s] Queues:  NS:17 SN:57 WE:86 EW:78 PedN:0 PedS:0
+[11:07:08.046] 🟢 Light 2: [1;32mGREEN[0m - Received QueryPartnerQueue from 0
+[11:07:08.046] 🟢 Light 0: [1;32mGREEN[0m - 📩 Received PartnerQueueResponse: queue=57 from 2
+[11:07:08.046] 🟢 Light 0: [1;32mGREEN[0m - ✅ Partner queue updated to 57
+[11:07:08.046] 🟢 Light 0: [1;32mGREEN[0m - ➡️ Sending QueryOpponentGroup to 1
+[11:07:08.047] 🔴 Light 1: [1;31mRED[0m - 🔥🔥🔥 Received QueryOpponentGroup from 0, isLeader=1, partnerQueue=2
+[11:07:08.047] 🔴 Light 1: [1;31mRED[0m - 📤 Sending opponent response: total=88 (myQueue=86 + partnerQueue=2)
+[11:07:08.047] 🟢 Light 0: [1;32mGREEN[0m - My total=74, opponent total=88
+[1;37mSimulation finished[0m
+[1;32m=========================================
+      SIMULATION COMPLETED SUCCESSFULLY  
+=========================================
+[0m
+[11:07:09.048] 🔴 Light 5: [1;31mRED[0m - Pedestrian light stopped
+[11:07:09.048] 🔴 Light 4: [1;31mRED[0m - Pedestrian light stopped
+[11:07:09.049] 🔴 Light 3: [1;31mRED[0m - Car light stopped
+[11:07:09.049] 🔴 Light 1: [1;31mRED[0m - Car light stopped
+[11:07:09.049] 🟢 Light 2: [1;32mGREEN[0m - Car light stopped
+[11:07:09.049] 🟢 Light 0: [1;32mGREEN[0m - Car light stopped
+[1;37mController stopped[0m
