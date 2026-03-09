@@ -1,6 +1,7 @@
 //27.02.2026 - temporary test code
 //02.03.2026
 // 06.03.2026
+// 09.03.2026
 
 #include "car_traffic_light.h"
 #include "pedestrian_traffic_light.h"
@@ -23,17 +24,16 @@ int main() {
 
     // ✅ СОЗДАЁМ КОНТРОЛЛЕР
     auto controller = std::make_unique<TrafficController>();
-    controller->start();
 
     // using smart pointers - automatic deletion
     auto ns = std::make_unique<CarTrafficLight>(0, Direction::North, nullptr, 
-                                                true, 2, 1, 15);
+                                                true, 2, 1, 25);
     auto sn = std::make_unique<CarTrafficLight>(2, Direction::South, ns.get(), 
-                                                false, 0, 1, 15);
+                                                false, 0, 1, 25);
     auto we = std::make_unique<CarTrafficLight>(1, Direction::West, nullptr, 
-                                                true, 3, 0, 10);
+                                                true, 3, 0, 20);
     auto ew = std::make_unique<CarTrafficLight>(3, Direction::East, we.get(), 
-                                                false, 1, 0, 10);
+                                                false, 1, 0, 20);
 
     // installation of opposite traffic lights
     ns->setOppositeLight(sn.get());
@@ -51,6 +51,10 @@ int main() {
     controller->registerLight(pedNorth.get());
     controller->registerLight(pedSouth.get());
     
+    controller->start();
+
+    std::this_thread::sleep_for(100ms);
+
     // activating all traffic lights
     ns->start();
     sn->start();

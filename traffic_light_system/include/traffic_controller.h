@@ -5,11 +5,40 @@
 
 #include "traffic_light_base.h"
 #include "event.h"
+#include "car_traffic_light.h"
 #include <vector>
 
 class TrafficController : public TrafficLightBase {
     std::vector<TrafficLightBase*> lights;
-    
+
+   // Новые константы
+    static constexpr std::chrono::seconds MIN_GREEN_TIME{20};
+    static constexpr std::chrono::seconds MAX_GREEN_TIME{30};
+
+    // 09.03.2026
+    // Структура для хранения состояния фазы
+    struct PhaseInfo {
+        DirectionGroup currentGroup;
+        std::chrono::steady_clock::time_point phaseStartTime;
+        bool switchRequested;
+        int requestingLeader;
+        
+        std::chrono::seconds elapsed() const {
+            return std::chrono::duration_cast<std::chrono::seconds>(
+                std::chrono::steady_clock::now() - phaseStartTime);
+        }
+    } phase;
+
+    // Новый поток для контроля времени
+    std::thread timingThread;
+    void timingLoop();
+
+    // Новые методы
+    void startPhase(DirectionGroup group);
+    void checkPhaseTiming();
+    void processSwitchRequest(int requestingLeader);
+    void switchToOppositeGroup();
+
 protected:
     void processEvent(const Event& event) override;
 
@@ -18,7 +47,7 @@ public:
 
     TrafficController();
     ~TrafficController();
-    void start();
+    void start() override;
     void stop();
 
 
