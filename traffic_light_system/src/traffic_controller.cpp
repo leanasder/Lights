@@ -59,6 +59,9 @@ void TrafficController::processEvent(const Event& event) {
     if (event.type == EventType::RequestSwitch) {
         processSwitchRequest(event.senderId);
     }
+    else if (event.type == EventType::PedestrianQueueUpdate) {
+        updateTotalPedestrians();
+    }
 }
 
 void TrafficController::processSwitchRequest(int requestingLeader) {
@@ -86,7 +89,17 @@ void TrafficController::processSwitchRequest(int requestingLeader) {
 void TrafficController::timingLoop() {
     while (isRunning.load()) {
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        checkPhaseTiming();
+        
+        if (pedestrianMode) {
+            // Check if pedestrian phase time is over
+            auto elapsed = std::chrono::steady_clock::now() - pedestrianPhaseStart;
+            if (elapsed >= PEDESTRIAN_PHASE_TIME) {
+                endPedestrianPhase();
+            }
+        } else {
+            // Normal operation - check phase timing
+            checkPhaseTiming();
+        }
     }
 }
 
@@ -128,3 +141,69 @@ void TrafficController::processEvents() {}
 void TrafficController::handleEvent() {}
 TrafficColor TrafficController::getCurrentColor() const { return TrafficColor::Red; }
 int TrafficController::getQueueLength() const { return 0; }
+
+// Update total pedestrian count
+void TrafficController::updateTotalPedestrians() {
+    int total = 0;
+    for (auto* light : lights) {
+        // Pedestrian lights have IDs 4-11
+        if (light->getId() >= 4) {
+            total += light->getQueueLength();
+        }
+    }
+    totalPedestrians = total;
+    
+    ColoredOutput::printInfo("🚶 Total pedestrians: " + std::to_string(total));
+    
+    // Only check threshold if not already in pedestrian mode
+    if (!pedestrianMode) {
+        checkPedestrianThreshold();
+    }
+}
+
+//  Check if pedestrian threshold is reached
+void TrafficController::checkPedestrianThreshold() {
+    if (totalPedestrians >= PEDESTRIAN_THRESHOLD) {
+        ColoredOutput::printInfo("🚶🚶🚶 PEDESTRIAN THRESHOLD REACHED! " + 
+            std::to_string(totalPedestrians.load()) + " people waiting");
+        startPedestrianPhase();
+    }
+}
+
+//  Start pedestrian phase (all cars red, all pedestrians green)
+void TrafficController::startPedestrianPhase() {
+    pedestrianMode = true;
+    pedestrianPhaseStart = std::chrono::steady_clock::now();
+    
+    ColoredOutput::printInfo("🟢 Starting PEDESTRIAN phase for " + 
+        std::to_string(PEDESTRIAN_PHASE_TIME.count()) + " seconds");
+    
+    // Send commands to ALL traffic lights
+    for (auto* light : lights) {
+        if (!light) continue;
+        
+        TrafficColor newColor;
+        if (light->getId() < 4) {
+            // Car lights (IDs 0-3) → RED
+            newColor = TrafficColor::Red;
+        } else {
+            // Pedestrian lights (IDs 4-11) → GREEN
+            newColor = TrafficColor::Green;
+        }
+        
+        Event cmd(CONTROLLER_ID, light->getId(), EventType::SwitchCommand, newColor);
+        TrafficLightBase::sendEvent(light->getId(), cmd);
+    }
+}
+
+// End pedestrian phase, resume normal operation
+void TrafficController::endPedestrianPhase() {
+    pedestrianMode = false;
+    ColoredOutput::printInfo("🔴 Pedestrian phase ended, resuming normal operation");
+    
+    // Reset total counter after pedestrians have crossed
+    totalPedestrians = 0;
+    
+    // Resume with NS phase (as usual)
+    startPhase(DirectionGroup::NorthSouth);
+}

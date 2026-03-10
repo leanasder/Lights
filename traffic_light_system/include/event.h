@@ -13,7 +13,10 @@ enum class EventType {
     QueryPartnerQueue,    // request to a group partner
     PartnerQueueResponse, // answer from partner
     QueryOpponentGroup,   // request to the leader of the opposite group
-    OpponentGroupResponse // response from the leader of the opposite group
+    OpponentGroupResponse, // response from the leader of the opposite group
+
+    // new event type for pedestrians
+    PedestrianQueueUpdate // pedestrian light reports tis queue to controller
 };
 
 // the structure of event

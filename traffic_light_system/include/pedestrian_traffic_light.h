@@ -17,6 +17,9 @@ class PedestrianTrafficLight : public TrafficLightBase {
     std::unique_ptr<Camera> camera;
     std::atomic<int> myQueue{0};
 
+    std::atomic<bool> crossingActive{false};
+    std::thread crossingThread;
+
 protected:
      void processEvent(const Event& event) override; 
 
@@ -40,22 +43,17 @@ public:
     // methods for work with camera
     int getQueueLenght() const { return myQueue.load(); }
 
-     void pedestrianPassed() {
-        if (myQueue > 0) {
-            myQueue--;
-        }
-    }
+     void pedestrianPassed(); 
 
-    void simulateArrival() {
-        static std::mt19937 rng(std::random_device{}());
-        static std::uniform_int_distribution<> dist(0, 3);
-        myQueue += dist(rng);
-    }
+    void simulateArrival();
 
     int getQueueLength() const override {
-        return 0; // пока заглушка
+        return myQueue.load(); 
     }
 
+    void startCrossing();
+    void stopCrossing();
+ 
     void processEvents() override;  
     void handleEvent() override;    
 };

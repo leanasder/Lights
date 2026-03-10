@@ -11,6 +11,19 @@
 class TrafficController : public TrafficLightBase {
     std::vector<TrafficLightBase*> lights;
 
+    // fields for pedestrian control
+    std::atomic<int> totalPedestrians{0}; // total pedestrians waiting at all crossings
+    static constexpr int PEDESTRIAN_THRESHOLD = 30; // trigger pedestrian phase when reached
+    static constexpr std::chrono::seconds PEDESTRIAN_PHASE_TIME{15}; // how long pedestrians get green
+    bool pedestrianMode{false}; // true when pedestrian phase is active
+    std::chrono::steady_clock::time_point pedestrianPhaseStart; // when pedestrian phase started
+
+    // methods for controll pedestrians
+    void updateTotalPedestrians();
+    void checkPedestrianThreshold();
+    void startPedestrianPhase();
+    void endPedestrianPhase();
+
    // Новые константы
     static constexpr std::chrono::seconds MIN_GREEN_TIME{20};
     static constexpr std::chrono::seconds MAX_GREEN_TIME{30};
