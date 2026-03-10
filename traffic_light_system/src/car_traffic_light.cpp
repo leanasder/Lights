@@ -132,10 +132,33 @@ void CarTrafficLight::setColor(TrafficColor color) {
     if (color ==TrafficColor::Green ) {
         // for green's time rides few cars
         std::thread([this]() {
-            for (int i = 0; i < 3 && isRunning.load(); ++i) {
+             // Initialize the random number generator for this stream
+            std::srand(static_cast<unsigned>(std::time(nullptr)) + id);
+            
+            while (isRunning.load() && currentColor == TrafficColor::Green) {
                 std::this_thread::sleep_for(1s);
-                vehiclePassed();
+                
+                if (myQueue > 0) {
+                    // random count of cars: 1 или 2
+                    int passed = std::rand() % 2 + 1;  // 1 или 2
+                    int actualPassed = 0;
+                    
+                    // passing passed cars, but no more than there are in the queue
+                    for (int i = 0; i < passed && myQueue > 0; i++) {
+                        vehiclePassed();
+                        actualPassed++;
+                    }
+                    
+                    ColoredOutput::print(id, currentColor, 
+                        "🚗 " + std::to_string(actualPassed) + " cars passed" +
+                        (actualPassed < passed ? " (queue empty)" : "") +
+                        ", queue=" + std::to_string(myQueue.load()));
+                } else {
+                    ColoredOutput::print(id, currentColor, "Queue empty, waiting...");
+                }
             }
+            ColoredOutput::print(id, currentColor, "🟢 Green phase ended");               
+            
         }).detach();
     }
 }
