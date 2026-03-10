@@ -64,9 +64,15 @@ int main() {
     pedSouth->start();
 
     ColoredOutput::printInfo("Simulation running for 60 seconds...");
+    ColoredOutput::printInfo("Cars arrive every 2 seconds (more realistic)");
 
-    // simulating the arrival of cars every second 
+    // simulating the arrival of cars every 2 seconds 
+    int arrivalCounter = 0;
     for (int i = 0; i < 60; ++i) {
+        arrivalCounter++;
+
+        // we add new cars and pedestrians every 2 seconds.
+        if (arrivalCounter % 2 == 0) { 
         ns->simulateArrival();
         sn->simulateArrival();
         we->simulateArrival();
@@ -75,7 +81,7 @@ int main() {
         // pedestrians also arrive
         pedNorth->simulateArrival();
         pedSouth->simulateArrival();
-
+        }
         // displaying the current status of queues
         std::cout << "\n[" << i << "s] Queues: "
                   << " NS:" << ns->getQueueLength()
