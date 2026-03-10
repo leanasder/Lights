@@ -1,5 +1,6 @@
 //25.02.2026
 //05.03.2026
+//10.03.2026
 
 #pragma once
 
@@ -15,6 +16,11 @@ enum class Direction {
 
 enum class DirectionGroup {
     NorthSouth, EastWest
+};
+
+enum class TurnDirection {
+    Straight,
+    Right
 };
 
 class CarTrafficLight : public TrafficLightBase {
@@ -41,6 +47,10 @@ class CarTrafficLight : public TrafficLightBase {
     // 09.03.2026 for timeout
     std::chrono::steady_clock::time_point surveyStartTime;
     static constexpr std::chrono::seconds SURVEY_TIMEOUT{2};
+
+    //10.03.2026 for counter
+    std::atomic<int> straightCount{0};
+    std::atomic<int> rightCount{0};
 
 protected:
     void processEvent(const Event& event) override; 
@@ -76,4 +86,7 @@ public:
     }
 
     void checkThreshold();
+
+    int getStraightCount() const { return straightCount.load(); }
+    int getRightCount() const { return rightCount.load(); }
 };

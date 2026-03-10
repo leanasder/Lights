@@ -47,10 +47,44 @@ void CarTrafficLight::vehiclePassed() {
 
 void CarTrafficLight::simulateArrival() {
     static std::mt19937 rng(std::random_device{}());
-    static std::uniform_int_distribution<> dist(0, 3);
-    myQueue += dist(rng);
+    
+    // how many cars arrived dureing this tick
+    static std::uniform_int_distribution<> countDist(0, 3);
+    // direction for each car (0- straight, 1 - right)
+    static std::uniform_int_distribution<> turnDist(0, 1);
+    
+    int carsCount = countDist(rng);
+    int straightInBatch = 0;
+    int rightInBatch = 0;
+    
+    // each car independently chooses the direction
+    for (int i = 0; i < carsCount; ++i) {
+        int turn = turnDist(rng);
+        myQueue++;  // encreasing the total queue
+        
+        if (turn == 0) {
+            straightInBatch++;
+            // straightCount++; 
+        } else {
+            rightInBatch++;
+            // rightCount++;
+        }
+    }
+    
+    // beautiful output with information about the directions
+    std::string directionInfo;
+    if (carsCount > 0) {
+        directionInfo = " (straight:" + std::to_string(straightInBatch) + 
+                       ", right:" + std::to_string(rightInBatch) + ")";
+    }
+    
+    ColoredOutput::print(id, currentColor, 
+        "🚗 " + std::to_string(carsCount) + " cars arrived" + directionInfo + 
+        ", queue=" + std::to_string(myQueue.load()));
+    
     checkThreshold();
 }
+
 
 CarTrafficLight::CarTrafficLight(int id, Direction dir, CarTrafficLight * oppositeLight,
                                  bool leader, int partner, int opponent, int thresh)
