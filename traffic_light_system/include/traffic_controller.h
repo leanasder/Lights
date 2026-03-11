@@ -7,13 +7,14 @@
 #include "event.h"
 #include "car_traffic_light.h"
 #include <vector>
+#include <optional>
 
 class TrafficController : public TrafficLightBase {
     std::vector<TrafficLightBase*> lights;
 
     // fields for pedestrian control
     std::atomic<int> totalPedestrians{0}; // total pedestrians waiting at all crossings
-    static constexpr int PEDESTRIAN_THRESHOLD = 30; // trigger pedestrian phase when reached
+    static constexpr int PEDESTRIAN_THRESHOLD = 60; // trigger pedestrian phase when reached
     static constexpr std::chrono::seconds PEDESTRIAN_PHASE_TIME{15}; // how long pedestrians get green
     bool pedestrianMode{false}; // true when pedestrian phase is active
     std::chrono::steady_clock::time_point pedestrianPhaseStart; // when pedestrian phase started
@@ -23,6 +24,17 @@ class TrafficController : public TrafficLightBase {
     void checkPedestrianThreshold();
     void startPedestrianPhase();
     void endPedestrianPhase();
+
+    // fields for remembering pending requests
+    std::optional<DirectionGroup> pendingGroup;
+    std::optional<int> pendingLeaderId;
+
+    // 🆕 PARAMETERS FOR DYNAMIC PEDESTRIAN PHASE
+    static constexpr std::chrono::seconds MIN_PEDESTRIAN_TIME{5};  // minimum 5 seconds
+    static constexpr std::chrono::seconds MAX_PEDESTRIAN_TIME{15}; // maximum 15 seconds
+    static constexpr int EMPTY_QUEUE_THRESHOLD = 3; // if queue ≤ 3, can terminate early
+    
+    bool earlyTermination{false}; // flag that we can end phase early
 
    // Новые константы
     static constexpr std::chrono::seconds MIN_GREEN_TIME{20};

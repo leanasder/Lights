@@ -34,6 +34,10 @@ void TrafficController::stop() {
 }
 
 void TrafficController::startPhase(DirectionGroup group) {
+    // Clear pending requests when starting a new phase
+    pendingGroup.reset();
+    pendingLeaderId.reset();
+    
     phase.currentGroup = group;
     phase.phaseStartTime = std::chrono::steady_clock::now();
     phase.switchRequested = false;
@@ -42,19 +46,27 @@ void TrafficController::startPhase(DirectionGroup group) {
         std::string(group == DirectionGroup::NorthSouth ? "NS" : "WE") + 
         " phase (min=20s, max=30s)");
     
-    // Отправляем команды всем светофорам
+    // Send commands to ALL traffic lights
     for (auto* light : lights) {
         if (!light) continue;
         
-        bool isNS = (light->getId() == 0 || light->getId() == 2);
-        TrafficColor newColor = (isNS == (group == DirectionGroup::NorthSouth)) 
-            ? TrafficColor::Green : TrafficColor::Red;
+        TrafficColor newColor;
+        
+        if (light->getId() < 4) {
+            // 🚗 CAR LIGHTS (IDs 0-3)
+            bool isNS = (light->getId() == 0 || light->getId() == 2);
+            newColor = (isNS == (group == DirectionGroup::NorthSouth)) 
+                ? TrafficColor::Green : TrafficColor::Red;
+        } else {
+            // 🚶 PEDESTRIAN LIGHTS (IDs 4-11)
+            // During car phases, ALL pedestrians are RED
+            newColor = TrafficColor::Red;
+        }
         
         Event cmd(CONTROLLER_ID, light->getId(), EventType::SwitchCommand, newColor);
         TrafficLightBase::sendEvent(light->getId(), cmd);
     }
 }
-
 void TrafficController::processEvent(const Event& event) {
     if (event.type == EventType::RequestSwitch) {
         processSwitchRequest(event.senderId);
@@ -65,6 +77,21 @@ void TrafficController::processEvent(const Event& event) {
 }
 
 void TrafficController::processSwitchRequest(int requestingLeader) {
+    // 🆕 If pedestrian phase is active, remember the request
+    if (pedestrianMode) {
+        DirectionGroup requestedGroup = (requestingLeader == 0 || requestingLeader == 2) 
+            ? DirectionGroup::NorthSouth : DirectionGroup::EastWest;
+        
+        pendingGroup = requestedGroup;
+        pendingLeaderId = requestingLeader;
+        
+        ColoredOutput::printInfo("📝 Pedestrian phase active, remembering request from Light " + 
+            std::to_string(requestingLeader) + 
+            " (" + (requestedGroup == DirectionGroup::NorthSouth ? "NS" : "WE") + " group)");
+        return;
+    }
+    
+    // Normal switch request processing (existing code)
     auto elapsed = phase.elapsed();
     
     ColoredOutput::printInfo("📨 Switch request from Light " + 
@@ -72,14 +99,12 @@ void TrafficController::processSwitchRequest(int requestingLeader) {
         std::to_string(elapsed.count()) + "s");
     
     if (elapsed < MIN_GREEN_TIME) {
-        // Рано переключаться - запоминаем запрос
         phase.switchRequested = true;
         phase.requestingLeader = requestingLeader;
         ColoredOutput::printInfo("⏳ Request queued - need " + 
             std::to_string((MIN_GREEN_TIME - elapsed).count()) + 
             "s more of minimum time");
     } else {
-        // Уже прошло минимум 20с - можно переключаться
         ColoredOutput::printInfo("🔄 Immediate switch after " + 
             std::to_string(elapsed.count()) + "s");
         switchToOppositeGroup();
@@ -91,9 +116,18 @@ void TrafficController::timingLoop() {
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
         
         if (pedestrianMode) {
-            // Check if pedestrian phase time is over
             auto elapsed = std::chrono::steady_clock::now() - pedestrianPhaseStart;
-            if (elapsed >= PEDESTRIAN_PHASE_TIME) {
+            
+            //  EARLY TERMINATION CHECK
+            if (earlyTermination && elapsed >= MIN_PEDESTRIAN_TIME) {
+                // We've already waited minimum time and queue is empty
+                ColoredOutput::printInfo("🟢 Pedestrian queue empty, ending phase early after " +
+                    std::to_string(std::chrono::duration_cast<std::chrono::seconds>(elapsed).count()) + "s");
+                endPedestrianPhase();
+            }
+            // Normal max time check
+            else if (elapsed >= MAX_PEDESTRIAN_TIME) {
+                ColoredOutput::printInfo("🔴 Max pedestrian time reached (15s)");
                 endPedestrianPhase();
             }
         } else {
@@ -143,23 +177,51 @@ TrafficColor TrafficController::getCurrentColor() const { return TrafficColor::R
 int TrafficController::getQueueLength() const { return 0; }
 
 // Update total pedestrian count
-void TrafficController::updateTotalPedestrians() {
+   void TrafficController::updateTotalPedestrians() {
+    if (!isRunning.load()) return;
+    
     int total = 0;
     for (auto* light : lights) {
-        // Pedestrian lights have IDs 4-11
         if (light->getId() >= 4) {
             total += light->getQueueLength();
         }
     }
+    
+    int oldTotal = totalPedestrians.load();
     totalPedestrians = total;
     
-    ColoredOutput::printInfo("🚶 Total pedestrians: " + std::to_string(total));
+    // 🆕 CHECK FOR EARLY TERMINATION DURING PEDESTRIAN PHASE
+    if (pedestrianMode) {
+        auto elapsed = std::chrono::steady_clock::now() - pedestrianPhaseStart;
+        
+        // If minimum time passed AND queue is almost empty AND we haven't already triggered early termination
+        if (elapsed >= MIN_PEDESTRIAN_TIME && total <= EMPTY_QUEUE_THRESHOLD && !earlyTermination) {
+            earlyTermination = true;
+            ColoredOutput::printInfo("🚶 Pedestrian queue almost empty (" + 
+                std::to_string(total) + " left), will end phase soon");
+        }
+    }
     
-    // Only check threshold if not already in pedestrian mode
+    // Smart printing - only when significant changes happen
+    static int lastReportedTotal = 0;
+    bool significantChange = (abs(total - lastReportedTotal) >= 10);
+    bool thresholdJustReached = (!pedestrianMode && oldTotal < PEDESTRIAN_THRESHOLD && total >= PEDESTRIAN_THRESHOLD);
+    bool firstReport = (lastReportedTotal == 0);
+    
+    if (significantChange || thresholdJustReached || firstReport) {
+        std::string msg = "🚶 Total pedestrians: " + std::to_string(total);
+        if (thresholdJustReached) {
+            msg += " - THRESHOLD REACHED!";
+        }
+        ColoredOutput::printInfo(msg);
+        lastReportedTotal = total;
+    }
+    
     if (!pedestrianMode) {
         checkPedestrianThreshold();
     }
 }
+
 
 //  Check if pedestrian threshold is reached
 void TrafficController::checkPedestrianThreshold() {
@@ -174,10 +236,13 @@ void TrafficController::checkPedestrianThreshold() {
 void TrafficController::startPedestrianPhase() {
     pedestrianMode = true;
     pedestrianPhaseStart = std::chrono::steady_clock::now();
+     earlyTermination = false;  //  reset flag
     
-    ColoredOutput::printInfo("🟢 Starting PEDESTRIAN phase for " + 
-        std::to_string(PEDESTRIAN_PHASE_TIME.count()) + " seconds");
-    
+    ColoredOutput::printInfo("🟢 Starting PEDESTRIAN phase for max " + 
+        std::to_string(MAX_PEDESTRIAN_TIME.count()) + 
+        " seconds (min " + std::to_string(MIN_PEDESTRIAN_TIME.count()) + 
+        "s, will end early if queue empties)");
+
     // Send commands to ALL traffic lights
     for (auto* light : lights) {
         if (!light) continue;
@@ -199,11 +264,28 @@ void TrafficController::startPedestrianPhase() {
 // End pedestrian phase, resume normal operation
 void TrafficController::endPedestrianPhase() {
     pedestrianMode = false;
-    ColoredOutput::printInfo("🔴 Pedestrian phase ended, resuming normal operation");
     
-    // Reset total counter after pedestrians have crossed
+    auto actualDuration = std::chrono::duration_cast<std::chrono::seconds>(
+        std::chrono::steady_clock::now() - pedestrianPhaseStart);
+    
+    // Determine who gets green next
+    DirectionGroup nextGroup;
+    
+    if (pendingGroup.has_value()) {
+        nextGroup = pendingGroup.value();
+        ColoredOutput::printInfo("🔴 Pedestrian phase ended after " + 
+            std::to_string(actualDuration.count()) + "s, granting green to " + 
+            std::string(nextGroup == DirectionGroup::NorthSouth ? "NS" : "WE") + 
+            " group (request from Light " + std::to_string(pendingLeaderId.value_or(-1)) + ")");
+        
+        pendingGroup.reset();
+        pendingLeaderId.reset();
+    } else {
+        nextGroup = DirectionGroup::NorthSouth;
+        ColoredOutput::printInfo("🔴 Pedestrian phase ended after " + 
+            std::to_string(actualDuration.count()) + "s, resuming normal operation");
+    }
+    
     totalPedestrians = 0;
-    
-    // Resume with NS phase (as usual)
-    startPhase(DirectionGroup::NorthSouth);
+    startPhase(nextGroup);
 }

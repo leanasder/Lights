@@ -91,8 +91,6 @@ void PedestrianTrafficLight::processEvent(const Event& event) {
     void PedestrianTrafficLight::pedestrianPassed() {
         if (myQueue > 0) {
             myQueue--;
-            ColoredOutput::print(id, getCurrentColor(), 
-                "🚶 1 pedestrian crossed, queue=" + std::to_string(myQueue.load()));
             
             // 🆕 SEND UPDATE TO CONTROLLER
             Event update(id, 1000, EventType::PedestrianQueueUpdate, myQueue.load());
@@ -121,10 +119,15 @@ void PedestrianTrafficLight::startCrossing() {
             }
 
             if (actualCrossed > 0) {
+                if (actualCrossed > 0) {
                 ColoredOutput::print(id, getCurrentColor(), 
-                    "🚶 " + std::to_string(actualCrossed) + " pedestrians crossed" +
+                    "🚶 " + std::to_string(actualCrossed) + " pedestrians crossed this second" +
                     (actualCrossed < crossingNow ? " (queue empty)" : "") +
-                    ", queue=" + std::to_string(myQueue.load()));
+                    ", queue now " + std::to_string(myQueue.load()));
+                } else if (myQueue == 0) {
+                    // Optional: print when queue becomes empty
+                    ColoredOutput::print(id, getCurrentColor(), "🚶 Queue empty");
+                }
             }
         }
         ColoredOutput::print(id, getCurrentColor(), "🚶 Crossing thread ended");
