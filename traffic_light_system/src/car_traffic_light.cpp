@@ -38,9 +38,17 @@ void CarTrafficLight::checkThreshold() {
     }
 }
 
-void CarTrafficLight::vehiclePassed() {
+void CarTrafficLight::vehiclePassed(TurnDirection turn) {
     if (myQueue > 0) {
         myQueue--;
+
+        //decrease the appropriate counter
+        if (turn == TurnDirection::Straight) {
+            if (straightCount > 0) straightCount--;
+        } else {
+            if (rightCount > 0) rightCount--;
+        }
+        
         checkThreshold();
     }
 }
@@ -48,30 +56,30 @@ void CarTrafficLight::vehiclePassed() {
 void CarTrafficLight::simulateArrival() {
     static std::mt19937 rng(std::random_device{}());
     
-    // how many cars arrived dureing this tick
+    // how many cars arrived (0-3)
     static std::uniform_int_distribution<> countDist(0, 3);
-    // direction for each car (0- straight, 1 - right)
+    // direction for EACH car (0 - straight, 1 - right)
     static std::uniform_int_distribution<> turnDist(0, 1);
     
     int carsCount = countDist(rng);
     int straightInBatch = 0;
     int rightInBatch = 0;
     
-    // each car independently chooses the direction
+    // Each car independently chooses direction
     for (int i = 0; i < carsCount; ++i) {
         int turn = turnDist(rng);
-        myQueue++;  // encreasing the total queue
+        myQueue++;  // increase total queue
         
         if (turn == 0) {
             straightInBatch++;
-            // straightCount++; 
+            straightCount++;  // update counter
         } else {
             rightInBatch++;
-            // rightCount++;
+            rightCount++;     // update counter
         }
     }
     
-    // beautiful output with information about the directions
+    // Nice output with direction info
     std::string directionInfo;
     if (carsCount > 0) {
         directionInfo = " (straight:" + std::to_string(straightInBatch) + 
@@ -80,11 +88,12 @@ void CarTrafficLight::simulateArrival() {
     
     ColoredOutput::print(id, currentColor, 
         "🚗 " + std::to_string(carsCount) + " cars arrived" + directionInfo + 
-        ", queue=" + std::to_string(myQueue.load()));
+        ", queue=" + std::to_string(myQueue.load()) +
+        ", total straight:" + std::to_string(straightCount.load()) +
+        " right:" + std::to_string(rightCount.load()));
     
     checkThreshold();
 }
-
 
 CarTrafficLight::CarTrafficLight(int id, Direction dir, CarTrafficLight * oppositeLight,
                                  bool leader, int partner, int opponent, int thresh)
@@ -128,37 +137,41 @@ void CarTrafficLight::setColor(TrafficColor color) {
     currentColor = color;
     ColoredOutput::print(id, color, "Color changed");
 
-    //if the light turns green, cars will move (reduce queue)
-    if (color ==TrafficColor::Green ) {
-        // for green's time rides few cars
+    if (color == TrafficColor::Green) {
         std::thread([this]() {
-             // Initialize the random number generator for this stream
-            std::srand(static_cast<unsigned>(std::time(nullptr)) + id);
+            static std::mt19937 rng(std::random_device{}());
+            static std::uniform_int_distribution<> passDist(1, 2);  // 1 or 2 cars per second
+            static std::uniform_int_distribution<> turnDist(0, 1);  // 0-straight, 1-right
             
             while (isRunning.load() && currentColor == TrafficColor::Green) {
                 std::this_thread::sleep_for(1s);
                 
                 if (myQueue > 0) {
-                    // random count of cars: 1 или 2
-                    int passed = std::rand() % 2 + 1;  // 1 или 2
+                    int carsToPass = passDist(rng);
                     int actualPassed = 0;
+                    int straightPassed = 0;
+                    int rightPassed = 0;
                     
-                    // passing passed cars, but no more than there are in the queue
-                    for (int i = 0; i < passed && myQueue > 0; i++) {
-                        vehiclePassed();
+                    for (int i = 0; i < carsToPass && myQueue > 0; i++) {
+                        TurnDirection turn = (turnDist(rng) == 0) ? TurnDirection::Straight : TurnDirection::Right;
+                        
+                        if (turn == TurnDirection::Straight) straightPassed++;
+                        else rightPassed++;
+                        
+                        vehiclePassed(turn);  // pass the turn direction
                         actualPassed++;
                     }
                     
                     ColoredOutput::print(id, currentColor, 
                         "🚗 " + std::to_string(actualPassed) + " cars passed" +
-                        (actualPassed < passed ? " (queue empty)" : "") +
-                        ", queue=" + std::to_string(myQueue.load()));
+                        (actualPassed < carsToPass ? " (queue empty)" : "") +
+                        " (straight:" + std::to_string(straightCount.load()) + 
+                        " right:" + std::to_string(rightCount.load()) + ")");
                 } else {
                     ColoredOutput::print(id, currentColor, "Queue empty, waiting...");
                 }
             }
-            ColoredOutput::print(id, currentColor, "🟢 Green phase ended");               
-            
+            ColoredOutput::print(id, currentColor, "🟢 Green phase ended");
         }).detach();
     }
 }

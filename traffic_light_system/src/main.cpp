@@ -3,7 +3,9 @@
 // 06.03.2026
 // 09.03.2026
 //10.03.2026
+// 11.03.2026
 
+#include "intersection_manager.h"
 #include "car_traffic_light.h"
 #include "pedestrian_traffic_light.h"
 #include "colored_output.h"
@@ -56,6 +58,15 @@ int main() {
     // East crossings (attached to EW)
     auto pedE1 = std::make_unique<PedestrianTrafficLight>(10, ew.get());  // east crossing 1
     auto pedE2 = std::make_unique<PedestrianTrafficLight>(11, ew.get());  // east crossing 2
+
+    // 🆕 CREATE INTERSECTION MANAGER
+    IntersectionManager intersectionManager(
+        ns.get(), sn.get(), we.get(), ew.get(),
+        {pedN1.get(), pedN2.get()},      // north pedestrians (N1, N2)
+        {pedS1.get(), pedS2.get()},      // south pedestrians (S1, S2)
+        {pedW1.get(), pedW2.get()},      // west pedestrians (W1, W2)
+        {pedE1.get(), pedE2.get()}       // east pedestrians (E1, E2)
+    );
 
     // Register all car lights with controller
     controller->registerLight(ns.get());
@@ -119,6 +130,9 @@ int main() {
             pedE1->simulateArrival();
             pedE2->simulateArrival();
         }
+
+        //  CHECK RIGHT-TURN CONFLICTS EVERY SECOND
+        intersectionManager.update();
 
         // Display queue lengths every second
         std::cout << "\n[" << i << "s] Queues:\n"

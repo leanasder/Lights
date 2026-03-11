@@ -10,6 +10,7 @@
 #include <atomic>
 #include <random>
 
+
 enum class Direction {
     North, South, West, East
 };
@@ -27,6 +28,9 @@ class CarTrafficLight : public TrafficLightBase {
     std::atomic<TrafficColor> currentColor{TrafficColor::Red};
     std::unique_ptr<Camera> camera;
     std::atomic<int> myQueue{0};
+
+    std::atomic<int> straightCount{0};  // cars going straight
+    std::atomic<int> rightCount{0};     // cars turning right
 
     std::mt19937 rng;
     std::uniform_int_distribution<> arrivalDist{0, 3};
@@ -48,10 +52,6 @@ class CarTrafficLight : public TrafficLightBase {
     std::chrono::steady_clock::time_point surveyStartTime;
     static constexpr std::chrono::seconds SURVEY_TIMEOUT{2};
 
-    //10.03.2026 for counter
-    std::atomic<int> straightCount{0};
-    std::atomic<int> rightCount{0};
-
 protected:
     void processEvent(const Event& event) override; 
 
@@ -68,7 +68,6 @@ public:
 
     //methods for work with the queue
     int getQueueLength() const { return myQueue.load();}
-    void vehiclePassed(); 
     
 
     //simulation
@@ -89,4 +88,6 @@ public:
 
     int getStraightCount() const { return straightCount.load(); }
     int getRightCount() const { return rightCount.load(); }
+
+    void vehiclePassed(TurnDirection turn);
 };
